@@ -1,3 +1,35 @@
+:root{
+    --wood_rt: rgba(102,87,26,1);
+}
+
+.div-center{vertical-align: middle; display: flex; justify-content: center;}
+.text-center{text-align: center;} 
+.line-normal{line-height: normal !important;}
+
 body{
     background-color: white !important;
+}
+
+.intro{
+    width: 100%; height: 100%;
+}
+
+.opacity-null{
+    opacity: 0;
+}
+
+.logo{
+    transform: scale(0.7);
+    transition: all 1s;
+}
+
+.draw-logo{
+    fill: transparent;
+    stroke: var(--wood_rt); stroke-width: 4px;
+}
+
+.slogan-logo{
+    transition: all 1s;
+    font-size: 18.61px; font-family: CenturyGothic, Century Gothic, sans-serif;
+    letter-spacing: 0.17em; fill: var(--wood_rt); 
 }
