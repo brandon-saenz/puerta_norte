@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <!--begin::Head-->
+    
     <head>
         <base href="<?php echo STASIS; ?>/">
         <meta charset="utf-8" />

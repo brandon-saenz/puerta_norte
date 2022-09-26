@@ -6,5 +6,7 @@ require(ROOT_DIR . 'sistema/vista.php');
 require(ROOT_DIR . 'sistema/controlador.php');
 require(ROOT_DIR . 'sistema/fw.php');
 global $config;
+
+        
 define('STASIS', $config['base_url']);
 fw();

@@ -6,7 +6,34 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(function(){
         onIntro();
     },100);
+    M.AutoInit();
+    tabs_swiper = new Swiper(".tabs-swiper", {
+        modules: [eventsTabsSwiper],
+        // keyboard: {
+        //     enabled: true,
+        // },
+        hashNavigation: {
+            watchState: true,
+        },
+        debugger: true,
+        allowTouchMove: false,
+    });
 });
+
+function eventsTabsSwiper({ swiper, extendParams, on }) {
+    extendParams({
+      debugger: false,
+    });
+
+    on('slideChange', () => {
+        if (!swiper.params.debugger) return;
+        if(swiper.activeIndex>=1){
+            console.log('COMPLETADO');
+        }else{
+            console.log('INICIO');
+        }    
+    });
+}
 
 
 function onIntro(){
@@ -18,6 +45,26 @@ function onIntro(){
         slogan_logo.classList.remove('opacity-null');
         setTimeout(function(){
             loader_spin.classList.remove('opacity-null');
+            setTimeout(function(){
+                offIntro();
+            },2000);
         },1000);
     },1000);
+}
+
+function offIntro(){
+    var intro = document.querySelector('.intro');
+    intro.classList.add('opacity-null');
+    setTimeout(function(){
+        intro.style.display='none';
+    },500);
+    viewContent();
+}
+
+function viewContent(){
+    var content_page = document.querySelector('.content');
+    content_page.style.display='block';
+    setTimeout(function(){
+        content_page.classList.remove('opacity-null');
+    },1);
 }

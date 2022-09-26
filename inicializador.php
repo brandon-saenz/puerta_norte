@@ -1,7 +1,7 @@
 <?php
 // Modo produccion/desarrollo
 // ini_set('display_errors', 1);
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 
 ini_set('session.cookie_lifetime', 60 * 60 * 24 * 7);
 ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7);
