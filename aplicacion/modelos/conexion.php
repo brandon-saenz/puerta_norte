@@ -10,7 +10,7 @@ final class Modelos_Conexion {
 			if(in_array($_SERVER['HTTP_HOST'], $lista)) {
 				$_usuario =		 'root';
 				$_contrasena =	 '';
-				$_nombre =		 'rancho_tecate';;
+				$_nombre =		 'rancho_tecate';
 			} else {
 		    	$_usuario =		 'rancho_tecate';
 				$_contrasena =	 'Sr18/*04'; 

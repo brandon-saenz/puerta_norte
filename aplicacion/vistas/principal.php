@@ -37,6 +37,7 @@
 			<path class="draw-logo" d="M410,37.93s41.22-14.56,93.51-1.13"/>
 			<text class="slogan-logo opacity-null" transform="translate(35.8 114.81)">cocina y tradición</text>
 		</svg>
+		<div class="loader-spin center opacity-null"><span></span></div>
 	</div>
 	<footer>
 
