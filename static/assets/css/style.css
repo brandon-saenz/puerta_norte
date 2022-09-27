@@ -15,11 +15,21 @@
 /* BOTONES DEL SCROLL*/
 ::-webkit-scrollbar-button{width: 0%; height: 0%;background-color: rgba(255,255,255,0);}
 
+.none{display: none !important;}
+
 .wood-bg{
     background-color: var(--wood_rt);
 }
 .wood-bg:hover{
-    background-color: black;
+    background-color: black !important;
+}
+
+.wood-cl{
+    color: var(--wood_rt) !important;
+}
+
+.white-cl{
+    color: white !important;
 }
 
 .div-center{vertical-align: middle; display: flex; justify-content: center;}
@@ -27,6 +37,11 @@
 .text-left{text-align: left;} 
 .text-right{text-align: right;} 
 .line-normal{line-height: normal !important;}
+
+.century{
+    font-family: Century Gothic, sans-serif;
+    font-style: normal;
+}
 
 .style-normal{font-style: normal !important;}
 .style-italic{font-style: italic !important;}
@@ -146,6 +161,25 @@ body{
     display: none; transition: all 0.5s;
 }
 
+.btn-page {
+    box-shadow: none !important;
+    border-radius: 0px;
+}
+.btn-page:hover{
+    box-shadow: none !important;
+    background-color: black !important;
+}
+
+.btn-page:focus{
+    background-color: var(--wood_rt) !important;
+}
+
+.btn-page-nota{
+    width: 70%;
+    margin-inline: 15%;
+    margin-top: 1rem;
+}
+
 .div-categoria {
     margin: 2rem;
     border: none;
@@ -206,4 +240,71 @@ body{
     margin-block: 0px;
     font-family: Century Gothic, sans-serif;
     color: var(--wood_rt);
+}
+
+
+.div-producto-modal, .div-addnote-modal {
+    margin-bottom: 1rem !important;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-block: 10px;
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    border-radius: 0;
+    border-bottom: 1px solid var(--wood_rt);
+}
+
+.div-producto-modal p, .div-addnote-modal p{
+    padding-bottom: 2rem;
+}
+
+.div-addnote-modal-none{
+    border-bottom: 0px solid var(--wood_rt) !important;
+    margin-bottom: 0rem !important;
+}
+
+.div-producto-modal div{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.div-number{
+    display: grid;
+    grid-template-columns: 0.6fr 0.7fr 0.6fr;
+    grid-column-gap: 0;
+    grid-row-gap: 0px;
+    padding-inline: 9rem !important;
+    margin-block: 1rem;
+}
+
+.div-follow{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 0px;
+    padding-inline: 25% !important;
+    margin-top: 2rem;
+}
+
+.div-custom-textarea{
+    margin: 0; padding: 0;
+}
+
+.custom-textarea{
+    border: 1px solid var(--wood_rt) !important;
+    padding-inline: 1rem !important;
+    font-family: "Century Gothic", sans-serif;
+    font-size: 1.5rem;
+    height: 6rem !important;
+}
+
+.custom-textarea:focus{
+    border-bottom: 1px solid var(--wood_rt) !important;
+    -webkit-box-shadow: 0 0 0 0 solid var(--wood_rt) !important;
+    box-shadow: 0 0 0 0 solid var(--wood_rt) !important;
 }

@@ -47,39 +47,64 @@
             <div class="modal-content">
                 <div class="swiper modal-product-swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="div-producto">
+
+                        <!-- SELECCIONAR PLATILLO O BEBIDA -->
+                        <div class="swiper-slide row">
+                            <div class="div-producto-modal col s12">
                                 <div>
                                     <p class="title-producto sfs-15 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
                                     <p class="title-producto text-right sfs-15 style-normal bold-600">${{dataModal[0].precioProducto}}.00</p>
                                 </div>
                                 <p class="title-producto sfs-15 style-normal bold-400">{{dataModal[0].descripcionProducto}}</p>
                             </div>
+                            <div class="col s12 div-number">
+                                <button class="btn btn-page waves-dark wood-bg" onclick="addNumber('-')"><i class="material-icons sfs-2">remove</i></button>
+                                <span id="number-count" class="text-center sfs-15 style-normal bold-600 century wood-cl">1</span>
+                                <button class="btn btn-page waves-dark wood-bg" onclick="addNumber('+')"><i class="material-icons sfs-2">add</i></button>
+                            </div>
+                            <div class="col s12 div-follow">
+                                <button id="step-1" class="btn btn-page wood-bg century white-cl sfs-13" onclick="gotoPageModal(1)">SIGUIENTE</button>
+                            </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="div-producto">
+
+                        <!-- AGREGAR ALGUNA NOTA ESPECIFICA -->
+                        <div class="swiper-slide row">
+                            <div class="div-addnote-modal col s12">
                                 <div>
-                                    <p class="title-producto sfs-15 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
+                                    <p class="title-producto sfs-15 style-normal bold-600">¿Deseas agregar una nota al chef?</p>
+                                </div>
+                                <p class="title-producto text-left sfs-13 style-normal bold-400">Si necesitas quitar o agregar un ingrediente adicional, puedes comentarlo aquí.</p>
+                            </div>
+                            <div id="addnote-options" class="">
+                                <button class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13" onclick="gotoPageModal(2)">NO GRACIAS</button>
+                                <button class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13" onclick="showInputAddNote(1)">SI NECESITO ALGO MÁS</button>
+                            </div>
+                            <div id="div-custom-addnote" class="input-field col s12 div-custom-textarea none">
+                                <textarea id="nota_producto" class="materialize-textarea custom-textarea"></textarea>
+                                <div class="col s12 div-follow">
+                                    <button class="btn btn-page wood-bg century white-cl sfs-13" onclick="gotoPageModal(3)">SIGUIENTE</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AÑADIR A LA LISTA DE PEDIDOS -->
+                        <div class="swiper-slide">
+                            <div class="div-producto-modal col s12">
+                                <div>
+                                    <p id="step-3-nameProducto" class="title-producto sfs-15 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
                                     <p class="title-producto text-right sfs-15 style-normal bold-600">${{dataModal[0].precioProducto}}.00</p>
                                 </div>
                                 <p class="title-producto sfs-15 style-normal bold-400">{{dataModal[0].descripcionProducto}}</p>
+                            </div>
+                            <div class="col s12">
+                                <span id="label-modal-total" class="text-center sfs-15 style-normal bold-600 wood-cl century">TOTAL: $180.00</span>
+                            </div>
+                            <div class="col s12 div-follow">
+                                <button class="btn btn-page wood-bg century white-cl sfs-13" @click="agregarProducto()">AGREGAR AL PEDIDO</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <a class="btn-floating waves-effect waves-dark wood-bg" onclick="addNumber('-')"><i class="material-icons">remove</i></a>
-                    <span id="number-count" class="text-center sfs-15 style-normal bold-600">1</span>
-                    <a class="btn-floating waves-effect waves-dark wood-bg" onclick="addNumber('+')"><i class="material-icons">add</i></a>
-                </div>
-                <div>
-                    <span id="label-modal-total" class="text-center sfs-15 style-normal bold-600">TOTAL: $180.00</span>
-                </div>
-                <div>
-                    <button class="btn waves-effect waves-dark wood-bg" onclick="gotoPageModal(1)">SIGUIENTE</button>
-                </div>
-            </div>
-            <div class="modal-footer">
             </div>
         </div>
           
@@ -110,32 +135,75 @@
 <script>
 
 document.addEventListener("DOMContentLoaded", function() {
-    $('#modal-select-product').modal();
+    $('#modal-select-product').modal({
+        onCloseEnd: refillModalProducto
+    });
 });
 
 function modalOpen(){
     console.log('modalOpen'+menu.base_url);
 }
 
+function gotoPageModal(index){
+    slideToIndex(modal_product_swiper, index, 500);
+    var label_modal_total=document.getElementById('label-modal-total');
+    label_modal_total.innerHTML='TOTAL: $'+menu.dataModal[0].precioProducto*menu.dataModal[0].cantidadProducto+'.00';
+}
+
 function addNumber(type){
     let number_count=document.getElementById('number-count');
     let counter=number_count.innerHTML;
+    let step_1=document.getElementById('step-1');
     if(type=='+'){
         counter++;
         number_count.innerHTML=counter;
         sumaModalProducto(counter);
+        step_1.classList.remove('disabled');
     }else{
-        if(counter>0){
-            counter--;
-            number_count.innerHTML=counter;
-            sumaModalProducto(counter);
+        counter--;
+        number_count.innerHTML=counter;
+        sumaModalProducto(counter);
+        if(counter==0){
+            step_1.classList.add('disabled');
         }
     }
 }
 
 function sumaModalProducto(counter){
+    menu.dataModal[0].cantidadProducto=counter;
     let label_modal_total=document.getElementById('label-modal-total');
-    label_modal_total.innerHTML='TOTAL: $'+menu.dataModal[0].precioProducto*counter+'.00';
+    let step_3_nameProducto=document.getElementById('step-3-nameProducto');
+
+    label_modal_total.innerHTML='TOTAL: $'+menu.dataModal[0].precioProducto*menu.dataModal[0].cantidadProducto+'.00';
+    step_3_nameProducto.innerHTML=menu.dataModal[0].cantidadProducto+' X '+menu.dataModal[0].nombreProducto;
+    // cantidadProducto
+}
+
+function showInputAddNote(bool){
+
+    let div_addnote_modal=document.querySelector('.div-addnote-modal');
+    
+    let div_custom_addnote=document.getElementById('div-custom-addnote');
+    let addnote_options=document.getElementById('addnote-options');
+
+    if(bool==1){
+        div_custom_addnote.classList.remove('none');
+        addnote_options.classList.add('none');
+        div_addnote_modal.classList.add('div-addnote-modal-none');
+        
+    }else{
+        div_custom_addnote.classList.add('none');
+        addnote_options.classList.remove('none');
+        div_addnote_modal.classList.remove('div-addnote-modal-none');
+    }
+}
+
+function refillModalProducto(){
+    menu.dataModal[0].cantidadProducto=1;
+    var number_count=document.getElementById('number-count');
+    number_count.innerHTML=1;
+    showInputAddNote(0);
+    gotoPageModal(0);
 }
 
 var menu = new Vue({
@@ -149,10 +217,11 @@ var menu = new Vue({
                 {
                     'nombreProducto': 'nombre',
                     'descripcionProducto': 'descripcion',
-                    'precioProducto': 'precio'
+                    'precioProducto': 'precio',
+                    'cantidadProducto': 1
                 }
             ],
-            base_url: '/puertanorte/aplicacion/modelos/custom'
+            base_url: '/puertanorte/aplicacion/modelos/custom',
         }
     }, 
     created() {
@@ -164,12 +233,19 @@ var menu = new Vue({
         },
     },
     methods:{
+        agregarProducto(){
+            console.log('agregarProducto');
+            $('#modal-select-product').modal('close');
+            refillModalProducto();
+        },
         selectProduct(iCategoria,iProducto){
+            var step_3_nameProducto=document.getElementById('step-3-nameProducto');
             // console.log('selectProduct: '+this.categorias[iCategoria].name_categoria+'|'+JSON.stringify(this.productos[iProducto]));
             console.log('selectProduct: '+this.categorias[iCategoria].name_categoria+'|'+this.productos[iProducto].titulo);
             this.dataModal[0].nombreProducto=this.productos[iProducto].titulo;
             this.dataModal[0].descripcionProducto=this.productos[iProducto].descripcion;
             this.dataModal[0].precioProducto=this.productos[iProducto].precio;
+            step_3_nameProducto.innerHTML=this.dataModal[0].cantidadProducto+' X '+this.dataModal[0].nombreProducto;
             $('#modal-select-product').modal('open');
         },
         loadCategorias(callback) {

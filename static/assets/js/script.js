@@ -1,6 +1,8 @@
 // document.querySelector('.draw-logo-path-'+i).style.fill='black';
 // var dasharray_fig=fig.getTotalLength().toFixed(0);
 
+var modal_product_swiper, tabs_swiper;
+
 document.addEventListener("DOMContentLoaded", function() {
     console.log('SCRIPT DEL PROYECTO FUNCIONANDO'); 
     // setTimeout(function(){
@@ -8,18 +10,18 @@ document.addEventListener("DOMContentLoaded", function() {
     // },100);
     offIntro();
     M.AutoInit();
-    alta_swiper = new Swiper(".alta-swiper", {
-        modules: [eventsAltaSwiper],
-        // keyboard: {
-        //     enabled: true,
-        // },
+    modal_product_swiper = new Swiper(".modal-product-swiper", {
+        modules: [eventsModalProductoSwiper],
+        keyboard: {
+            enabled: true,
+        },
         hashNavigation: {
             watchState: true,
         },
         debugger: true,
-        allowTouchMove: false,
+        allowTouchMove: true,
     });
-    
+
     tabs_swiper = new Swiper(".tabs-swiper", {
         modules: [eventsTabsSwiper],
         // keyboard: {
@@ -31,7 +33,24 @@ document.addEventListener("DOMContentLoaded", function() {
         debugger: true,
         allowTouchMove: false,
     });
+
+    // $('#nota_producto').characterCounter();
 });
+
+function eventsModalProductoSwiper({ swiper, extendParams, on }) {
+    extendParams({
+      debugger: false,
+    });
+
+    on('slideChange', () => {
+        if (!swiper.params.debugger) return;
+        if(swiper.activeIndex>=1){
+            // console.log('COMPLETADO');
+        }else{
+            // console.log('INICIO');
+        }    
+    });
+}
 
 function eventsTabsSwiper({ swiper, extendParams, on }) {
     extendParams({
@@ -46,6 +65,10 @@ function eventsTabsSwiper({ swiper, extendParams, on }) {
             console.log('INICIO');
         }    
     });
+}
+
+function slideToIndex(instance, index, timer){
+    instance.slideTo(index, timer);
 }
 
 
