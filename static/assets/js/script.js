@@ -3,11 +3,23 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     console.log('SCRIPT DEL PROYECTO FUNCIONANDO'); 
-    setTimeout(function(){
-        onIntro();
-    },100);
-    // offIntro();
+    // setTimeout(function(){
+    //     onIntro();
+    // },100);
+    offIntro();
     M.AutoInit();
+    alta_swiper = new Swiper(".alta-swiper", {
+        modules: [eventsAltaSwiper],
+        // keyboard: {
+        //     enabled: true,
+        // },
+        hashNavigation: {
+            watchState: true,
+        },
+        debugger: true,
+        allowTouchMove: false,
+    });
+    
     tabs_swiper = new Swiper(".tabs-swiper", {
         modules: [eventsTabsSwiper],
         // keyboard: {
