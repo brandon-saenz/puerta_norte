@@ -122,7 +122,7 @@ var menu = new Vue({
     methods:{
         loadData(callback) {
             const VUETHIS_SUB = this;
-            $.get("/puerta_norte/aplicacion/modelos/custom/categorias.php")
+            $.get("/puertanorte/aplicacion/modelos/custom/categorias.php")
             .done(function(response) {
                 let json_response;
                 try {
