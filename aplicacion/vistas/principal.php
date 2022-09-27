@@ -100,15 +100,11 @@ var menu = new Vue({
         return {
             categorias: [],
             productos: [],
+            base_url: '/puertanorte/aplicacion/modelos/custom'
         }
     }, 
     created() {
         this.loadCategorias();
-        if(this.categorias){
-            console.log('CATEGORÍAS VACÍO');
-        }else{
-            console.log('CATEGORÍAS LLENO');
-        }
     },
     watch:{
         "categorias"(newValue, oldValue){
@@ -118,7 +114,7 @@ var menu = new Vue({
     methods:{
         loadCategorias(callback) {
             const VUETHIS_SUB = this;
-            $.get("/puerta_norte/aplicacion/modelos/custom/categorias.php")
+            $.get(this.base_url+"/categorias.php")
             .done(function(response) {
                 let json_response;
                 try {
@@ -142,7 +138,7 @@ var menu = new Vue({
         },
         loadProductos(callback) {
             const VUETHIS_SUB = this;
-            $.get("/puerta_norte/aplicacion/modelos/custom/productos.php")
+            $.get(this.base_url+"/productos.php")
             .done(function(response) {
                 let json_response;
                 try {
