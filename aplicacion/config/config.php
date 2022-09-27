@@ -5,7 +5,7 @@ if(in_array($_SERVER['HTTP_HOST'], $lista)) {
 	$config['base_url']				= 'http://localhost/puertanorte';
 	setlocale(LC_MONETARY, '');
 } else {
-	$config['base_url']				= 'https://ranchotecate.mx/puerta_norte/';
+	$config['base_url']				= 'https://ranchotecate.mx/puertanorte/';
 	setlocale(LC_MONETARY, 'en_US');
 }
 
