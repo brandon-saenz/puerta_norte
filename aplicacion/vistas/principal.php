@@ -135,7 +135,7 @@ var menu = new Vue({
                     VUETHIS_SUB.altasEmpleados = json_response;
                     if(callback)
                         callback();
-                        VUETHIS_SUB.setTitleCountPage();
+                        console.log('AQUI SI FUNCIONA SIN PEDOS');
                     } else {
                         console.log('ERROR EN VUE 1'+JSON.stringify(json_response));
                     }
