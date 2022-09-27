@@ -103,6 +103,7 @@ var menu = new Vue({
         }
     }, 
     created() {
+        this.loadData();
         if(this.categorias){
             console.log('CATEGORÍAS VACÍO');
         }else{
@@ -119,7 +120,29 @@ var menu = new Vue({
         },
     },
     methods:{
-
+        loadData(callback) {
+            const VUETHIS_SUB = this;
+            $.get("/puerta_norte/aplicacion/modelos/custom/categorias.php")
+            .done(function(response) {
+                let json_response;
+                try {
+                    json_response = JSON.parse(response);
+                } catch (error) {
+                    json_response = null;
+                    console.log('ERROR: '+json_response);
+                }
+                if(json_response) {
+                    VUETHIS_SUB.altasEmpleados = json_response;
+                    if(callback)
+                        callback();
+                        VUETHIS_SUB.setTitleCountPage();
+                    } else {
+                        console.log('ERROR EN VUE 1'+JSON.stringify(json_response));
+                    }
+            }).fail(function() {
+                console.log('ERROR EN VUE 2');
+            });
+        }
     }
 });
 </script>
