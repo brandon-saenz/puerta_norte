@@ -98,12 +98,12 @@ var menu = new Vue({
     name: 'menu',
     data() {
         return {
-            categorias: <?php include APP.'modelos/custom/categorias.php'?>,
-            productos: <?php include APP.'modelos/custom/productos.php'?>,
+            categorias: [],
+            productos: [],
         }
     }, 
     created() {
-        this.loadData();
+        this.loadCategorias();
         if(this.categorias){
             console.log('CATEGORÍAS VACÍO');
         }else{
@@ -112,17 +112,13 @@ var menu = new Vue({
     },
     watch:{
         "categorias"(newValue, oldValue){
-            if(newValue==null){
-                console.log('CATEGORÍAS VACÍO');
-            }else{
-                console.log('CATEGORÍAS LLENO');
-            }
+            
         },
     },
     methods:{
-        loadData(callback) {
+        loadCategorias(callback) {
             const VUETHIS_SUB = this;
-            $.get("/puertanorte/aplicacion/modelos/custom/categorias.php")
+            $.get("/puerta_norte/aplicacion/modelos/custom/categorias.php")
             .done(function(response) {
                 let json_response;
                 try {
@@ -132,10 +128,34 @@ var menu = new Vue({
                     console.log('ERROR: '+json_response);
                 }
                 if(json_response) {
-                    VUETHIS_SUB.altasEmpleados = json_response;
+                    VUETHIS_SUB.categorias = json_response;
                     if(callback)
                         callback();
-                        console.log('AQUI SI FUNCIONA SIN PEDOS');
+                        console.log('loadCategorias - OK');
+                        VUETHIS_SUB.loadProductos();
+                    } else {
+                        console.log('ERROR EN VUE 1'+JSON.stringify(json_response));
+                    }
+            }).fail(function() {
+                console.log('ERROR EN VUE 2');
+            });
+        },
+        loadProductos(callback) {
+            const VUETHIS_SUB = this;
+            $.get("/puerta_norte/aplicacion/modelos/custom/productos.php")
+            .done(function(response) {
+                let json_response;
+                try {
+                    json_response = JSON.parse(response);
+                } catch (error) {
+                    json_response = null;
+                    console.log('ERROR: '+json_response);
+                }
+                if(json_response) {
+                    VUETHIS_SUB.productos = json_response;
+                    if(callback)
+                        callback();
+                        console.log('loadProductos - OK');
                     } else {
                         console.log('ERROR EN VUE 1'+JSON.stringify(json_response));
                     }

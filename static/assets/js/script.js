@@ -3,10 +3,10 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     console.log('SCRIPT DEL PROYECTO FUNCIONANDO'); 
-    setTimeout(function(){
-        onIntro();
-    },100);
-    // offIntro();
+    // setTimeout(function(){
+    //     onIntro();
+    // },100);
+    offIntro();
     M.AutoInit();
     tabs_swiper = new Swiper(".tabs-swiper", {
         modules: [eventsTabsSwiper],
