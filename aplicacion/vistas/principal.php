@@ -52,17 +52,22 @@
 			<div class="loader-spin center opacity-null"><span></span></div>
 		</div>
         <div class="content opacity-null">
-            <div class="div-categoria" v-for="(itemCategoria, i) in categorias" :key="i">
-                <label class="title-categoria sfs-18 style-italic bold-600">{{itemCategoria.name_categoria}}</label>
-                <div class="div-producto" v-for="(itemProductos, j) in productos" :key="j" 
-                    v-if="itemCategoria.id_categoria==itemProductos.id_categoria">
-                    <div>
-                        <p class="title-producto sfs-15 style-normal bold-600">{{itemProductos.titulo}}</p>
-                        <p class="title-producto text-right sfs-15 style-normal bold-600">${{itemProductos.precio}}.00</p>
+            <ul class="div-categoria collapsible">
+                <li v-for="(itemCategoria, i) in categorias" :key="i">
+                    <label class="collapsible-header title-categoria sfs-18 style-italic bold-600">{{itemCategoria.name_categoria}}</label>
+                    <div class="collapsible-body" v-for="(itemProductos, j) in productos" :key="j" 
+                        v-if="itemCategoria.id_categoria==itemProductos.id_categoria">
+                        <div class="div-producto">
+                            <div>
+                                <p class="title-producto sfs-15 style-normal bold-600">{{itemProductos.titulo}}</p>
+                                <p class="title-producto text-right sfs-15 style-normal bold-600">${{itemProductos.precio}}.00</p>
+                            </div>
+                            <p class="title-producto sfs-15 style-normal bold-400" v-if="itemProductos.descripcion!='0'">{{itemProductos.descripcion}}</p>
+                        </div>
                     </div>
-                    <p class="title-producto sfs-15 style-normal bold-400" v-if="itemProductos.descripcion!='0'">{{itemProductos.descripcion}}</p>
-                </div>
-            </div>
+                    
+                </li>
+            </ul>
         </div>
         <!-- <div class="swiper tabs-swiper">
             <div class="swiper-wrapper">
