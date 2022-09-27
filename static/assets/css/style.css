@@ -1,5 +1,25 @@
 :root{
     --wood_rt: rgba(102,87,26,1);
+    --wood_rt_05: rgba(102,87,26,0.5);
+}
+
+/* GROSOR DEL SCROLL*/
+::-webkit-scrollbar{width: 9px;}
+
+/* FONDO DEL SCROLL*/
+::-webkit-scrollbar-track{background-color: rgba(255,255,255,1);} 
+
+/* ACCION DEL SCROLL*/
+::-webkit-scrollbar-thumb{border-radius: 50px;background-color: rgba(0,0,0,0.4);} 
+
+/* BOTONES DEL SCROLL*/
+::-webkit-scrollbar-button{width: 0%; height: 0%;background-color: rgba(255,255,255,0);}
+
+.wood-bg{
+    background-color: var(--wood_rt);
+}
+.wood-bg:hover{
+    background-color: black;
 }
 
 .div-center{vertical-align: middle; display: flex; justify-content: center;}
@@ -23,6 +43,7 @@
 
 body{
     background-color: white !important;
+    font-size: 11px;
 }
 
 .intro{
@@ -142,6 +163,8 @@ body{
     font-family: Century Gothic, sans-serif;
     color: var(--wood_rt);
     font-style: italic;
+
+    margin-block: 1rem;
 }
 
 .div-categoria > li > div{
@@ -158,7 +181,9 @@ body{
     grid-row-gap: 0px;
 
     margin-block: 10px;
-    padding: 2rem;
+
+    padding-inline: 2rem;
+    padding-block: 1rem;
 
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.40);
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.40);
@@ -178,7 +203,7 @@ body{
 .title-producto{
     width: 100%;
     padding-top: 6px;
-    margin-bottom: 0px;
+    margin-block: 0px;
     font-family: Century Gothic, sans-serif;
     color: var(--wood_rt);
 }

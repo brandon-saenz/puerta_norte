@@ -24,14 +24,6 @@
 	<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-	<link href="assets/css/pages/login/classic/login-4.css" rel="stylesheet" type="text/css" />
-	<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-	<link href="assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css" />
-	<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-	<link href="assets/css/themes/layout/header/base/light.css" rel="stylesheet" type="text/css" />
-	<link href="assets/css/themes/layout/header/menu/light.css" rel="stylesheet" type="text/css" />
-	<link href="assets/css/themes/layout/brand/dark.css" rel="stylesheet" type="text/css" />
-	<link href="assets/css/themes/layout/aside/dark.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -51,47 +43,100 @@
 			</svg>
 			<div class="loader-spin center opacity-null"><span></span></div>
 		</div>
+        <div id="modal-select-product" class="modal bottom-sheet">
+            <div class="modal-content">
+                <div class="swiper modal-product-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="div-producto">
+                                <div>
+                                    <p class="title-producto sfs-15 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
+                                    <p class="title-producto text-right sfs-15 style-normal bold-600">${{dataModal[0].precioProducto}}.00</p>
+                                </div>
+                                <p class="title-producto sfs-15 style-normal bold-400">{{dataModal[0].descripcionProducto}}</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="div-producto">
+                                <div>
+                                    <p class="title-producto sfs-15 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
+                                    <p class="title-producto text-right sfs-15 style-normal bold-600">${{dataModal[0].precioProducto}}.00</p>
+                                </div>
+                                <p class="title-producto sfs-15 style-normal bold-400">{{dataModal[0].descripcionProducto}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a class="btn-floating waves-effect waves-dark wood-bg" onclick="addNumber('-')"><i class="material-icons">remove</i></a>
+                    <span id="number-count" class="text-center sfs-15 style-normal bold-600">1</span>
+                    <a class="btn-floating waves-effect waves-dark wood-bg" onclick="addNumber('+')"><i class="material-icons">add</i></a>
+                </div>
+                <div>
+                    <span id="label-modal-total" class="text-center sfs-15 style-normal bold-600">TOTAL: $180.00</span>
+                </div>
+                <div>
+                    <button class="btn waves-effect waves-dark wood-bg" onclick="gotoPageModal(1)">SIGUIENTE</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+          
         <div class="content opacity-null">
             <ul class="div-categoria collapsible">
                 <li v-for="(itemCategoria, i) in categorias" :key="i">
-                    <label class="collapsible-header title-categoria sfs-18 style-italic bold-600">{{itemCategoria.name_categoria}}</label>
-                    <div class="collapsible-body" v-for="(itemProductos, j) in productos" :key="j" 
+                    <label class="collapsible-header title-categoria sfs-15 style-italic bold-600">{{itemCategoria.name_categoria}}</label>
+
+                    <div @click="selectProduct(i,j)" class="collapsible-body" v-for="(itemProductos, j) in productos" :key="j" 
                         v-if="itemCategoria.id_categoria==itemProductos.id_categoria">
                         <div class="div-producto">
                             <div>
-                                <p class="title-producto sfs-15 style-normal bold-600">{{itemProductos.titulo}}</p>
-                                <p class="title-producto text-right sfs-15 style-normal bold-600">${{itemProductos.precio}}.00</p>
+                                <p class="title-producto sfs-13 style-normal bold-600">{{itemProductos.titulo}}</p>
+                                <p class="title-producto text-right sfs-13 style-normal bold-600">${{itemProductos.precio}}.00</p>
                             </div>
-                            <p class="title-producto sfs-15 style-normal bold-400" v-if="itemProductos.descripcion!='0'">{{itemProductos.descripcion}}</p>
+                            <p class="title-producto sfs-13 style-normal bold-400" v-if="itemProductos.descripcion!='0'">{{itemProductos.descripcion}}</p>
                         </div>
                     </div>
                     
                 </li>
             </ul>
         </div>
-        <!-- <div class="swiper tabs-swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="(itemCategoria, i) in categorias" :key="i">
-                    <h5 class="">{{itemCategoria.name_categoria}}</h5>
-                </div>
-            </div>
-        </div> -->
-        <!-- <ul class="collapsible">
-            <li class="" >
-                <div class="collapsible-header">{{itemCategoria.name_categoria}}</div>
-                <div v-for="(itemProductos, j) in productos" :key="j" 
-                    v-if="itemCategoria.id_categoria==itemProductos.id_categoria" 
-                    class="collapsible-body">
-                    <span>{{itemProductos.titulo}}</span>
-                </div>
-            </li>
-        </ul> -->
 	</div>
 	<footer>
 
 	</footer>
 </body>
 <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    $('#modal-select-product').modal();
+});
+
+function modalOpen(){
+    console.log('modalOpen'+menu.base_url);
+}
+
+function addNumber(type){
+    let number_count=document.getElementById('number-count');
+    let counter=number_count.innerHTML;
+    if(type=='+'){
+        counter++;
+        number_count.innerHTML=counter;
+        sumaModalProducto(counter);
+    }else{
+        if(counter>0){
+            counter--;
+            number_count.innerHTML=counter;
+            sumaModalProducto(counter);
+        }
+    }
+}
+
+function sumaModalProducto(counter){
+    let label_modal_total=document.getElementById('label-modal-total');
+    label_modal_total.innerHTML='TOTAL: $'+menu.dataModal[0].precioProducto*counter+'.00';
+}
 
 var menu = new Vue({
     el: '#menu',
@@ -100,6 +145,13 @@ var menu = new Vue({
         return {
             categorias: [],
             productos: [],
+            dataModal: [
+                {
+                    'nombreProducto': 'nombre',
+                    'descripcionProducto': 'descripcion',
+                    'precioProducto': 'precio'
+                }
+            ],
             base_url: '/puertanorte/aplicacion/modelos/custom'
         }
     }, 
@@ -112,6 +164,14 @@ var menu = new Vue({
         },
     },
     methods:{
+        selectProduct(iCategoria,iProducto){
+            // console.log('selectProduct: '+this.categorias[iCategoria].name_categoria+'|'+JSON.stringify(this.productos[iProducto]));
+            console.log('selectProduct: '+this.categorias[iCategoria].name_categoria+'|'+this.productos[iProducto].titulo);
+            this.dataModal[0].nombreProducto=this.productos[iProducto].titulo;
+            this.dataModal[0].descripcionProducto=this.productos[iProducto].descripcion;
+            this.dataModal[0].precioProducto=this.productos[iProducto].precio;
+            $('#modal-select-product').modal('open');
+        },
         loadCategorias(callback) {
             const VUETHIS_SUB = this;
             $.get(this.base_url+"/categorias.php")
