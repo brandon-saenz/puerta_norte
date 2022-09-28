@@ -179,7 +179,7 @@ var menu = new Vue({
             sumatoria: [],
             total_orden: 0,
             last_id_orden: 0,
-            base_url: '/puerta_norte/aplicacion/modelos/',
+            base_url: '/puerta_norte/aplicacion/modelos',
         }
     }, 
     created() {
