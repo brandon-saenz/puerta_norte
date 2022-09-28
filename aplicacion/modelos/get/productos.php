@@ -1,5 +1,5 @@
 <?php
-include_once 'db.php';
+include_once '../db.php';
 
 class SelectProductos extends DB{
     function getProductos(){

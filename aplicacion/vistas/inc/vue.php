@@ -104,11 +104,11 @@ function refillModalProducto(){
 
 function ordenar(){
         console.log('ORDENAR'+menu.lista_productos.length);
-        var bool=false;
+        var set_id_orden=parseInt(menu.last_id_orden)+1;
         
         $.ajax({ 
             type: "GET",
-            url: menu.base_url+'/guardar_orden.php',
+            url: menu.base_url+'/post/guardar_orden.php',
             data: { 
                 total: menu.total_orden,
                 nombre_ordenante: "Brandon"
@@ -120,9 +120,9 @@ function ordenar(){
                 for(var i=0; i<=menu.lista_productos.length-1; i++){
                     $.ajax({ 
                         type: "GET",
-                        url: menu.base_url+'/guardar_item_orden.php',
+                        url: menu.base_url+'/post/guardar_item_orden.php',
                         data: { 
-                            id_orden: 1,
+                            id_orden: set_id_orden,
                             id_producto: menu.lista_productos[i].idProducto,
                             cantidad: menu.lista_productos[i].cantidadProducto,
                             nota: 'menu.lista_productos[i].nota',
@@ -173,11 +173,13 @@ var menu = new Vue({
             lista_productos:[],
             sumatoria: [],
             total_orden: 0,
-            base_url: '/puerta_norte/aplicacion/modelos/custom',
+            last_id_orden: 0,
+            base_url: '/puerta_norte/aplicacion/modelos/',
         }
     }, 
     created() {
         this.loadCategorias();
+        this.loadLastIdOrdenes();
     },
     watch:{
         "total_orden"(newValue, oldValue){
@@ -235,7 +237,7 @@ var menu = new Vue({
         },
         loadCategorias(callback) {
             const VUETHIS_SUB = this;
-            $.get(this.base_url+"/get_categorias.php")
+            $.get(this.base_url+"/get/categorias.php")
             .done(function(response) {
                 let json_response;
                 try {
@@ -259,7 +261,7 @@ var menu = new Vue({
         },
         loadProductos(callback) {
             const VUETHIS_SUB = this;
-            $.get(this.base_url+"/get_productos.php")
+            $.get(this.base_url+"/get/productos.php")
             .done(function(response) {
                 let json_response;
                 try {
@@ -273,6 +275,29 @@ var menu = new Vue({
                     if(callback)
                         callback();
                         console.log('loadProductos - '+VUETHIS_SUB.productos.length);
+                    } else {
+                        console.log('ERROR EN VUE 1'+JSON.stringify(json_response));
+                    }
+            }).fail(function() {
+                console.log('ERROR EN VUE 2');
+            });
+        },
+        loadLastIdOrdenes(callback){
+            const VUETHIS_SUB = this;
+            $.get(this.base_url+"/get/last_id_ordenes.php")
+            .done(function(response) {
+                let json_response;
+                try {
+                    json_response = JSON.parse(response);
+                } catch (error) {
+                    json_response = null;
+                    console.log('ERROR: '+json_response);
+                }
+                if(json_response) {
+                    VUETHIS_SUB.last_id_orden = json_response[0].id;
+                    if(callback)
+                        callback();
+                        console.log('LAST ID: '+VUETHIS_SUB.last_id_orden);
                     } else {
                         console.log('ERROR EN VUE 1'+JSON.stringify(json_response));
                     }
