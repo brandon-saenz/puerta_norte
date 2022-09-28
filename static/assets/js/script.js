@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
             watchState: true,
         },
         debugger: true,
-        allowTouchMove: false,
+        allowTouchMove: true,
     });
 
     // $('#nota_producto').characterCounter();

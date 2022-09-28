@@ -24,20 +24,23 @@ function gotoPageModal(index){
         //NO A NOTA
         //SI A NOTA
 
-    // ACTION TO INDEX 1 | PREPARAR LA INFORMACIÓN DE STEP - 3
+    // ACTION FROM STEP 1 | PREPARAR LA INFORMACIÓN DE STEP - 3
     else if(index==1){
         let step_3_subtotal=document.getElementById('step-3-subtotal');
         let step_3_nameProducto=document.getElementById('step-3-nameProducto');
+
         
         menu.dataModal[0].subtotal=menu.dataModal[0].precioProducto*menu.dataModal[0].cantidadProducto;
         step_3_subtotal.innerHTML='SUB TOTAL: $'+menu.dataModal[0].subtotal+'.00';
         step_3_nameProducto.innerHTML=menu.dataModal[0].cantidadProducto+' X '+menu.dataModal[0].nombreProducto;
-
+        
+        
     }
     //STEP - 3 | IR A - RESUMEN DE LO QUE QUIERO PEDIR (INDIVIDUALMENTE) / SUB TOTAL
-    // ACTION TO INDEX 2 | PREPARAR LA INFORMACIÓN DE STEP - 4
+    // ACTION FROM STEP - 2 | PREPARAR LA INFORMACIÓN DE STEP - 4
     else if(index==2){
-        
+        let nota_producto=document.getElementById('nota_producto');
+        menu.dataModal[0].nota=nota_producto.value;
     }
     
     //STEP - 4 | IR A - LISTADO DE LA ORDEN GENERAL
@@ -125,7 +128,7 @@ function ordenar(){
                             id_orden: set_id_orden,
                             id_producto: menu.lista_productos[i].idProducto,
                             cantidad: menu.lista_productos[i].cantidadProducto,
-                            nota: 'menu.lista_productos[i].nota',
+                            nota: menu.lista_productos[i].quiero_agregar_nota==1?menu.lista_productos[i].nota:0,
                             subtotal: menu.lista_productos[i].subtotal
                         },
                         beforeSend: function (params) {
@@ -157,6 +160,7 @@ var menu = new Vue({
     name: 'menu',
     data() {
         return {
+            tabs_categorias: [],
             categorias: [],
             productos: [],
             dataModal: [
@@ -167,6 +171,7 @@ var menu = new Vue({
                     'precioProducto': 'precio',
                     'cantidadProducto': 1,
                     'quiero_agregar_nota': 0,
+                    'nota': 0,
                     'subtotal':0,
                 }
             ],
@@ -178,7 +183,8 @@ var menu = new Vue({
         }
     }, 
     created() {
-        this.loadCategorias();
+        this.loadTabsCategorias();
+        this.loadCategoriasMenu();
         this.loadLastIdOrdenes();
     },
     watch:{
@@ -200,6 +206,8 @@ var menu = new Vue({
             obj.descripcionProducto  = this.dataModal[0].descripcionProducto;
             obj.precioProducto = this.dataModal[0].precioProducto;
             obj.cantidadProducto = this.dataModal[0].cantidadProducto;
+            obj.quiero_agregar_nota = this.dataModal[0].quiero_agregar_nota;
+            obj.nota = this.dataModal[0].nota;
             obj.subtotal = this.dataModal[0].subtotal;
 
             //AGREGANDO EL JSON A UNA LISTA DE OBJETOS - PARA COLECCIONAR LA LISTA DE PRODUCTOS AGREGADOS POR EL CLIENTE
@@ -213,6 +221,18 @@ var menu = new Vue({
             console.log('SUMATORIA: '+this.total_orden);
 
             gotoPageModal(3);
+        },
+        selectTab(index){
+            slideToIndex(tabs_swiper, index, 500);
+            console.log('INDEX TAB: '+tabs_swiper.activeIndex);
+            for(var i=0; i<=this.tabs_categorias.length-1; i++){
+                var tab=document.getElementById('tab_categoria-'+i);
+                if(tabs_swiper.activeIndex==i){
+                    tab.classList.add('tab-active');
+                }else{
+                    tab.classList.remove('tab-active');
+                }
+            }
         },
         selectProduct(iCategoria,iProducto){
             var step_3_nameProducto=document.getElementById('step-3-nameProducto');
@@ -235,9 +255,36 @@ var menu = new Vue({
             this.dataModal[0].quiero_agregar_nota=0;
             console.log('NO QUISO AGREGAR NOTA');
         },
-        loadCategorias(callback) {
+        loadTabsCategorias(callback) {
             const VUETHIS_SUB = this;
-            $.get(this.base_url+"/get/categorias.php")
+            $.get(this.base_url+"/get/categorias_tabs_menu.php")
+            .done(function(response) {
+                let json_response;
+                try {
+                    json_response = JSON.parse(response);
+                } catch (error) {
+                    json_response = null;
+                    console.log('ERROR: '+json_response);
+                }
+                if(json_response) {
+                    VUETHIS_SUB.tabs_categorias = json_response;
+                    if(callback)
+                        callback();
+                        // VUETHIS_SUB.loadProductos();
+                        setTimeout(function(){
+                            var tab_init=document.getElementById('tab_categoria-0');
+                            tab_init.classList.add('tab-active');
+                        }, 100);
+                    } else {
+                        console.log('ERROR EN VUE 1'+JSON.stringify(json_response));
+                    }
+            }).fail(function() {
+                console.log('ERROR EN VUE 2');
+            });
+        },
+        loadCategoriasMenu(callback) {
+            const VUETHIS_SUB = this;
+            $.get(this.base_url+"/get/categorias_menu.php")
             .done(function(response) {
                 let json_response;
                 try {
@@ -250,7 +297,7 @@ var menu = new Vue({
                     VUETHIS_SUB.categorias = json_response;
                     if(callback)
                         callback();
-                        console.log('loadCategorias - OK');
+                        console.log('loadTabsCategorias - OK');
                         VUETHIS_SUB.loadProductos();
                     } else {
                         console.log('ERROR EN VUE 1'+JSON.stringify(json_response));

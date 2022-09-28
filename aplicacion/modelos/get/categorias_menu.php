@@ -21,8 +21,8 @@ class Api{
     
                 $obj=array(
                     "id_categoria" => $row['id_categoria'],
-                    "name_categoria" => $row['name_categoria'],
-                    "icono" => $row['icono']
+                    "id_tab" => $row['id_tab'],
+                    "name_categoria" => $row['name_categoria']
                 );
                 array_push($data, $obj);
             }
