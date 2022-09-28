@@ -76,18 +76,18 @@
                                 <p class="title-producto text-left sfs-13 style-normal bold-400">Si necesitas quitar o agregar un ingrediente adicional, puedes comentarlo aquí.</p>
                             </div>
                             <div id="addnote-options" class="">
-                                <button class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13" onclick="gotoPageModal(2)">NO GRACIAS</button>
-                                <button class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13" onclick="showInputAddNote(1)">SI NECESITO ALGO MÁS</button>
+                                <button class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13" @click="noAddNota()">NO GRACIAS</button>
+                                <button class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13" @click="siAddNota()">SI NECESITO ALGO MÁS</button>
                             </div>
                             <div id="div-custom-addnote" class="input-field col s12 div-custom-textarea none">
                                 <textarea id="nota_producto" class="materialize-textarea custom-textarea"></textarea>
                                 <div class="col s12 div-follow">
-                                    <button class="btn btn-page wood-bg century white-cl sfs-13" onclick="gotoPageModal(3)">SIGUIENTE</button>
+                                    <button class="btn btn-page wood-bg century white-cl sfs-13" onclick="gotoPageModal(2)">SIGUIENTE</button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- AÑADIR A LA LISTA DE PEDIDOS -->
+                        <!-- VISTA PARA AÑADIR A LA LISTA DE ORDENES -->
                         <div class="swiper-slide">
                             <div class="div-producto-modal col s12">
                                 <div>
@@ -96,26 +96,26 @@
                                 </div>
                             </div>
                             <div class="col s12">
-                                <span id="label-modal-total" class="text-center sfs-15 style-normal bold-600 wood-cl century">TOTAL: $180.00</span>
+                                <span id="step-3-subtotal" class="text-center sfs-15 style-normal bold-600 wood-cl century"></span>
                             </div>
                             <div class="col s12 div-follow">
-                                <button class="btn btn-page wood-bg century white-cl sfs-13" @click="agregarProducto()">AGREGAR AL PEDIDO</button>
+                                <button class="btn btn-page wood-bg century white-cl sfs-13" @click="agregarProducto()">AGREGAR A LA ORDEN</button>
                             </div>
                         </div>
 
-                        <!-- LISTA DE PEDIDOS -->
+                        <!-- LISTA DE ORDENES -->
                         <div class="swiper-slide">
                             <div class="div-producto-modal col s12">
                                 <div v-for="(itemListProduct, i) in lista_productos" :key="i">
-                                    <p id="step-3-nameProducto" class="title-producto sfs-15 style-normal bold-600">{{itemListProduct.cantidadProducto}} X {{itemListProduct.nombreProducto}}</p>
+                                    <p id="step-4-nameProducto" class="title-producto sfs-15 style-normal bold-600">{{itemListProduct.cantidadProducto}} X {{itemListProduct.nombreProducto}}</p>
                                     <p class="title-producto text-right sfs-15 style-normal bold-600">${{itemListProduct.precioProducto}}.00</p>
                                 </div>
                             </div>
                             <div class="col s12">
-                                <span id="label-modal-total" class="text-center sfs-15 style-normal bold-600 wood-cl century">TOTAL: $180.00</span>
+                                <span id="step-4-total" class="text-center sfs-15 style-normal bold-600 wood-cl century">TOTAL: $180.00</span>
                             </div>
                             <div class="col s12 div-follow">
-                                <button class="btn btn-page wood-bg century white-cl sfs-13" @click="agregarProducto()">SOLICITAR PEDIDO</button>
+                                <button class="btn btn-page wood-bg century white-cl sfs-13" onclick="ordenar()">ORDENAR</button>
                             </div>
                         </div>
                     </div>

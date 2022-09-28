@@ -44,6 +44,7 @@ function eventsModalProductoSwiper({ swiper, extendParams, on }) {
 
     on('slideChange', () => {
         if (!swiper.params.debugger) return;
+        console.log('STEP MODAL PRODUCTO: '+swiper.activeIndex);
         if(swiper.activeIndex>=1){
             // console.log('COMPLETADO');
         }else{
