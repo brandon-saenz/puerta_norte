@@ -8,19 +8,16 @@ class DB{
     private $charset;
 
     public function __construct(){
-        if($config['base_url']=='http://localhost/puerta_norte'){
-            $this->host     = 'localhost';
-            $this->db       = 'rancho_tecate';
-            $this->user     = 'root';
-            $this->password = "";
-            $this->charset  = 'utf8mb4';
-        }else if($config['base_url']=='https://ranchotecate.mx/puertanorte/'){
-            $this->host     = 'p3plzcpnl487033';
-            $this->db       = 'rancho_tecate';
-            $this->user     = 'p1d67xcfzkkf';
-            $this->password = "Bo0B13S777.";
-            $this->charset  = 'utf8mb4';
-        }
+        $this->host     = 'p3plzcpnl487033';
+        $this->db       = 'rancho_tecate';
+        $this->user     = 'p1d67xcfzkkf';
+        $this->password = "Bo0B13S777.";
+        $this->charset  = 'utf8mb4';
+        // $this->host     = 'localhost';
+        // $this->db       = 'rancho_tecate';
+        // $this->user     = 'root';
+        // $this->password = "";
+        // $this->charset  = 'utf8mb4';
     }
 
     function connect(){
