@@ -55,7 +55,7 @@
                                     <p class="title-producto sfs-15 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
                                     <p class="title-producto text-right sfs-15 style-normal bold-600">${{dataModal[0].precioProducto}}.00</p>
                                 </div>
-                                <p class="title-producto sfs-15 style-normal bold-400">{{dataModal[0].descripcionProducto}}</p>
+                                <p class="title-producto sfs-15 style-normal bold-400" v-if="dataModal[0].descripcionProducto!='0'">{{dataModal[0].descripcionProducto}}</p>
                             </div>
                             <div class="col s12 div-number">
                                 <button class="btn btn-page waves-dark wood-bg" onclick="addNumber('-')"><i class="material-icons sfs-2">remove</i></button>
@@ -94,13 +94,28 @@
                                     <p id="step-3-nameProducto" class="title-producto sfs-15 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
                                     <p class="title-producto text-right sfs-15 style-normal bold-600">${{dataModal[0].precioProducto}}.00</p>
                                 </div>
-                                <p class="title-producto sfs-15 style-normal bold-400">{{dataModal[0].descripcionProducto}}</p>
                             </div>
                             <div class="col s12">
                                 <span id="label-modal-total" class="text-center sfs-15 style-normal bold-600 wood-cl century">TOTAL: $180.00</span>
                             </div>
                             <div class="col s12 div-follow">
                                 <button class="btn btn-page wood-bg century white-cl sfs-13" @click="agregarProducto()">AGREGAR AL PEDIDO</button>
+                            </div>
+                        </div>
+
+                        <!-- LISTA DE PEDIDOS -->
+                        <div class="swiper-slide">
+                            <div class="div-producto-modal col s12">
+                                <div v-for="(itemListProduct, i) in lista_productos" :key="i">
+                                    <p id="step-3-nameProducto" class="title-producto sfs-15 style-normal bold-600">{{itemListProduct.cantidadProducto}} X {{itemListProduct.nombreProducto}}</p>
+                                    <p class="title-producto text-right sfs-15 style-normal bold-600">${{itemListProduct.precioProducto}}.00</p>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <span id="label-modal-total" class="text-center sfs-15 style-normal bold-600 wood-cl century">TOTAL: $180.00</span>
+                            </div>
+                            <div class="col s12 div-follow">
+                                <button class="btn btn-page wood-bg century white-cl sfs-13" @click="agregarProducto()">SOLICITAR PEDIDO</button>
                             </div>
                         </div>
                     </div>
@@ -221,7 +236,8 @@ var menu = new Vue({
                     'cantidadProducto': 1
                 }
             ],
-            base_url: '/puertanorte/aplicacion/modelos/custom',
+            lista_productos:[],
+            base_url: '/puerta_norte/aplicacion/modelos/custom',
         }
     }, 
     created() {
@@ -235,8 +251,19 @@ var menu = new Vue({
     methods:{
         agregarProducto(){
             console.log('agregarProducto');
-            $('#modal-select-product').modal('close');
-            refillModalProducto();
+            // $('#modal-select-product').modal('close');
+            // refillModalProducto();
+
+            var obj = new Object();
+            obj.nombreProducto = this.dataModal[0].nombreProducto;
+            obj.descripcionProducto  = this.dataModal[0].descripcionProducto;
+            obj.precioProducto = this.dataModal[0].precioProducto;
+            obj.cantidadProducto = this.dataModal[0].cantidadProducto;
+
+            this.lista_productos.push(obj);
+            console.log('Data: '+JSON.stringify(this.lista_productos));
+
+            gotoPageModal(4);
         },
         selectProduct(iCategoria,iProducto){
             var step_3_nameProducto=document.getElementById('step-3-nameProducto');
@@ -287,7 +314,7 @@ var menu = new Vue({
                     VUETHIS_SUB.productos = json_response;
                     if(callback)
                         callback();
-                        console.log('loadProductos - OK');
+                        console.log('loadProductos - '+VUETHIS_SUB.productos.length);
                     } else {
                         console.log('ERROR EN VUE 1'+JSON.stringify(json_response));
                     }

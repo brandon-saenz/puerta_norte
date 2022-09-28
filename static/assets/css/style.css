@@ -275,10 +275,10 @@ body{
 
 .div-number{
     display: grid;
-    grid-template-columns: 0.6fr 0.7fr 0.6fr;
+    grid-template-columns: 0.6fr 1fr 0.6fr;
     grid-column-gap: 0;
     grid-row-gap: 0px;
-    padding-inline: 9rem !important;
+    padding-inline: 5rem !important;
     margin-block: 1rem;
 }
 
@@ -287,7 +287,7 @@ body{
     grid-template-columns: 1fr;
     grid-column-gap: 0;
     grid-row-gap: 0px;
-    padding-inline: 25% !important;
+    padding-inline: 10% !important;
     margin-top: 2rem;
 }
 
