@@ -28,7 +28,7 @@ function wsConnect(){
     websocket.onopen=function(evt){
         onOpen(evt);
     }
-    websocket.onClose=function(evt){
+    websocket.onclose=function(evt){
         onClose(evt);
     }
     websocket.onmessage=function(evt){
