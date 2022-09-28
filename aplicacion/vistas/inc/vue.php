@@ -145,7 +145,7 @@ var menu = new Vue({
                 }
             ],
             lista_productos:[],
-            base_url: '/puerta_norte/aplicacion/modelos/custom',
+            base_url: '/puertanorte/aplicacion/modelos/custom',
         }
     }, 
     created() {
