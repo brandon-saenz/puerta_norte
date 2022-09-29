@@ -152,7 +152,7 @@
             </ul>
             
             <div class="div-tab-categoria">
-                <div>
+                <div id="into-div-tab">
                     <span v-bind:id="'tab_categoria-'+i" class="tab-categoria sfs-11 bold-600" 
                         v-for="(tabCategoria, i) in tabs_categorias" :key="i" @click="selectTab(i)">
                         {{tabCategoria.title_tab}}
@@ -167,7 +167,7 @@
                         <div v-for="(itemCategoria, j) in categorias" :key="j" 
                             v-if="itemCategoria.id_tab==tabCategoria.id_tab">
                             <p class="title-categoria sfs-15 style-italic bold-600">{{itemCategoria.name_categoria}}</p>
-                            <div @click="selectProduct(i,j)" class="" v-for="(itemProductos, k) in productos" :key="k" 
+                            <div @click="selectProduct(j,k)" class="" v-for="(itemProductos, k) in productos" :key="k" 
                                 v-if="itemCategoria.id_categoria==itemProductos.id_categoria">
                                 <div class="div-producto">
                                     <div>

@@ -60,11 +60,12 @@ function eventsTabsSwiper({ swiper, extendParams, on }) {
 
     on('slideChange', () => {
         if (!swiper.params.debugger) return;
-        if(swiper.activeIndex>=1){
-            console.log('COMPLETADO');
-        }else{
-            console.log('INICIO');
-        }    
+        // if(swiper.activeIndex>=1){
+        //     console.log('COMPLETADO');
+        // }else{
+        //     console.log('INICIO');
+        // }  
+        menu.selectTab(swiper.activeIndex);  
     });
 }
 

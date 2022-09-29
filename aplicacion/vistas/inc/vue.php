@@ -97,6 +97,16 @@ function showInputAddNote(bool){
     }
 }
 
+function calc(array, i1, i2){
+    let result = 0;
+
+    array.slice(i1, (i2 + 1)).forEach(element => {
+        result += element;
+    });
+
+    return result;
+}
+
 function refillModalProducto(){
     menu.dataModal[0].cantidadProducto=1;
     var number_count=document.getElementById('number-count');
@@ -224,10 +234,17 @@ var menu = new Vue({
         },
         selectTab(index){
             slideToIndex(tabs_swiper, index, 500);
-            console.log('INDEX TAB: '+tabs_swiper.activeIndex);
+            var div_tab_categoria=document.querySelector('.div-tab-categoria');
+            var into_div_tab=document.getElementById('into-div-tab');
+            var elemsWidthArray=[];
+            
             for(var i=0; i<=this.tabs_categorias.length-1; i++){
                 var tab=document.getElementById('tab_categoria-'+i);
+                elemsWidthArray.push(tab.offsetWidth);
+                console.log('ELEMENT WIDTH: '+elemsWidthArray);
+                console.log('SUMATORIA: '+calc(elemsWidthArray, 0, 2));
                 if(tabs_swiper.activeIndex==i){
+                    div_tab_categoria.scrollLeft=calc(elemsWidthArray, 0, tabs_swiper.activeIndex-1);
                     tab.classList.add('tab-active');
                 }else{
                     tab.classList.remove('tab-active');

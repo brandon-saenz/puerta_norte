@@ -208,6 +208,7 @@ nav svg {
     overflow-x: scroll;
     height: 4.5rem;
     margin-top: -3px;
+    scroll-behavior: smooth;
 }
 
 .div-tab-categoria::-webkit-scrollbar {
