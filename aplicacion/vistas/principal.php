@@ -52,17 +52,17 @@
                         <div class="swiper-slide row">
                             <div class="div-producto-modal col s12">
                                 <div>
-                                    <p class="title-producto sfs-15 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
-                                    <p class="title-producto text-right sfs-15 style-normal bold-600">${{dataModal[0].precioProducto}}.00</p>
+                                    <p class="title-producto sfs-14 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
+                                    <p class="title-producto text-right sfs-14 style-normal bold-600">${{dataModal[0].precioProducto}}.00</p>
                                 </div>
-                                <p class="title-producto sfs-15 style-normal bold-400" v-if="dataModal[0].descripcionProducto!='0'">{{dataModal[0].descripcionProducto}}</p>
-                            </div>
-                            <div class="col s12 div-number">
-                                <button class="btn btn-page waves-dark wood-bg" onclick="addNumber('-')"><i class="material-icons sfs-2">remove</i></button>
-                                <span id="number-count" class="text-center sfs-15 style-normal bold-600 century wood-cl">1</span>
-                                <button class="btn btn-page waves-dark wood-bg" onclick="addNumber('+')"><i class="material-icons sfs-2">add</i></button>
+                                <p class="title-producto descripcion-producto sfs-15 style-normal bold-400" v-if="dataModal[0].descripcionProducto!='0'">{{dataModal[0].descripcionProducto}}</p>
                             </div>
                             <div class="col s12 div-follow">
+                                <div class="col s12 div-number div-center">
+                                    <button class="btn btn-page btn-plus waves-dark wood-bg" onclick="addNumber('-')"><i class="material-icons sfs-2">remove</i></button>
+                                    <span id="number-count" class="text-center sfs-15 style-normal bold-600 century wood-cl">1</span>
+                                    <button class="btn btn-page btn-plus waves-dark wood-bg" onclick="addNumber('+')"><i class="material-icons sfs-2">add</i></button>
+                                </div>
                                 <button id="step-1" class="btn btn-page wood-bg century white-cl sfs-13" onclick="gotoPageModal(1)">SIGUIENTE</button>
                             </div>
                         </div>
@@ -73,22 +73,18 @@
                                 <div>
                                     <p class="title-producto sfs-15 style-normal bold-600">¿Deseas agregar una nota al chef?</p>
                                 </div>
-                                <p class="title-producto text-left sfs-13 style-normal bold-400">Si necesitas quitar o agregar un ingrediente adicional, puedes comentarlo aquí.</p>
+                                <p id="describe-nota" class="title-producto text-left sfs-13 style-normal bold-400">Si necesitas quitar o agregar un ingrediente adicional, puedes comentarlo aquí.</p>
                             </div>
                             <div id="addnote-options" class="">
-                                <button class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13" @click="noAddNota()">NO GRACIAS</button>
-                                <button class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13" @click="siAddNota()">SI NECESITO ALGO MÁS</button>
-                            </div>
-                            <div id="div-custom-addnote" class="input-field col s12 div-custom-textarea none">
-                                <textarea id="nota_producto" class="materialize-textarea custom-textarea"></textarea>
-                                <div class="col s12 div-follow">
-                                    <button class="btn btn-page wood-bg century white-cl sfs-13" onclick="gotoPageModal(2)">SIGUIENTE</button>
-                                </div>
+                                <button id="no-add-nota" class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13" @click="noAddNota()">NO GRACIAS</button>
+                                <button id="si-add-nota" class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13" @click="siAddNota()">SI NECESITO ALGO MÁS</button>
+                                <textarea id="nota-producto" class="materialize-textarea custom-textarea none"></textarea>
+                                <button id="follow-nota" class="btn btn-page btn-page-nota col wood-bg century white-cl sfs-13 none" onclick="gotoPageModal(2)">SIGUIENTE</button>
                             </div>
                         </div>
 
-                        <!-- VISTA PARA AÑADIR A LA LISTA DE ORDENES -->
-                        <div class="swiper-slide">
+                        <!-- VISTA PARA AÑADIR AL RESUMEN DE ORDEN -->
+                        <div class="swiper-slide row">
                             <div class="div-producto-modal col s12">
                                 <div>
                                     <p id="step-3-nameProducto" class="title-producto sfs-15 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
@@ -97,37 +93,33 @@
                                 <p class="title-producto sfs-13 style-italic bold-400" v-if="dataModal[0].quiero_agregar_nota!='0'">
                                     <span class="sfs-13 style-normal bold-600">Nota: </span>"{{dataModal[0].nota}}"</p>
                             </div>
-                            <div class="col s12">
+                            <div class="col s12 text-center" style="margin-block: 2rem;">
                                 <span id="step-3-subtotal" class="text-center sfs-15 style-normal bold-600 wood-cl century"></span>
                             </div>
                             <div class="col s12 div-follow">
-                                <button class="btn btn-page wood-bg century white-cl sfs-13" @click="agregarProducto()">AGREGAR A LA ORDEN</button>
-                            </div>
-                        </div>
-
-                        <!-- LISTA DE ORDENES -->
-                        <div class="swiper-slide">
-                            <div class="div-producto-modal div-list-productos col s12">
-                                <div v-for="(itemListProduct, i) in lista_productos" :key="i">
-                                    <p id="step-4-nameProducto" class="title-producto sfs-15 style-normal bold-600">{{itemListProduct.cantidadProducto}} X {{itemListProduct.nombreProducto}}</p>
-                                    <p class="title-producto text-right sfs-15 style-normal bold-600">${{itemListProduct.precioProducto}}.00</p>
-                                </div>
-                            </div>
-                            <div class="col s12">
-                                <span id="step-4-total" class="text-center sfs-15 style-normal bold-600 wood-cl century">TOTAL: $180.00</span>
-                            </div>
-                            <div class="col s12 div-follow">
-                                <button class="btn btn-page wood-bg century white-cl sfs-13" onclick="ordenar()">ORDENAR</button>
+                                <button class="btn btn-page col wood-bg century white-cl sfs-13" @click="agregarProducto()">AGREGAR A LA ORDEN</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div id="modal-alert" class="modal">
+            <div class="modal-content">
+                <div class="col s12 div-center">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                </div>
+                <p class="col s12 century wood-cl sfs-15 text-center">SE AGREGÓ A TU ORDEN</p>
+            </div>
+        </div>
           
         <div class="content opacity-null">
             <nav>
-                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="#" data-target="slide-main" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <a href="#" class="div-center">
                     <svg class="nav-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 136.12">
                         <path class="draw-logo" d="M22.7,58.1s-9.13-2-10.14-7.1,1-8.11,1-8.11S19.66,29.7,37.92,24.63s34.48-6.08,39.56,6.09-9,27.2-9,27.2S40.38,90.49,16.61,78.39"/>
@@ -142,14 +134,38 @@
                         <text class="slogan-logo opacity-null" transform="translate(35.8 114.81)">cocina y tradición</text>
                     </svg>
                 </a>
+                <a href="#" data-target="slide-ordenes" class="sidenav-trigger">
+                    <i id="icon-badge-cantidad-productos" class="material-icons">restaurant_menu</i>
+                    <span id="badge-cantidad-productos" class="badge-data"></span>
+                </a>
             </nav>
 
-            <ul id="slide-out" class="sidenav">
+            <ul id="slide-main" class="sidenav">
               <li><a href="#!">OPCION 1</a></li>
               <li><div class="divider"></div></li>
               <li><a class="subheader">OPCION 2</a></li>
               <li><a class="waves-effect" href="#!">OPCION 3</a></li>
             </ul>
+
+            <ul id="slide-ordenes" class="sidenav">
+                <li><p class="wood-cl century sfs-13 text-center">RESUMEN DE ORDEN</p></li>
+                <li><div class="divider"></div></li>
+                <li class="li-orden-producto" v-if="total_orden!=0">
+                    <!-- LISTA DE PRODUCTOS AGREGADOS -->
+                    <div class="div-orden-producto" v-for="(itemListProduct, i) in lista_productos" :key="i">
+                        <p class="title-producto sfs-12 style-normal bold-500">{{itemListProduct.cantidadProducto}} X {{itemListProduct.nombreProducto}}</p>
+                        <p class="title-producto text-right sfs-12 style-normal bold-500">${{itemListProduct.precioProducto}}.00</p>
+                    </div>
+                </li>
+                <li v-if="total_orden!=0"><div class="divider"></div></li>
+                <li>
+                    <!-- PRECIO TOTAL DE LA ORDEN -->
+                    <p id="step-4-total" class="text-center sfs-15 style-normal bold-600 wood-cl century"></p>
+                </li>
+                <li class="div-center" v-if="total_orden!=0">
+                    <button class="btn btn-page wood-bg century white-cl sfs-13" onclick="ordenar()">ORDENAR</button>
+                </li>
+              </ul>
             
             <div class="div-tab-categoria">
                 <div id="into-div-tab">

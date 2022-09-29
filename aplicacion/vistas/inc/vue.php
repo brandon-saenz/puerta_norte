@@ -2,7 +2,17 @@
 document.addEventListener("DOMContentLoaded", function() {
     //initWS();
     $('#modal-select-product').modal({
-        onCloseEnd: refillModalProducto
+        onCloseEnd: refillModalProducto,
+        outDuration: 500
+    });
+
+    $('#modal-alert').modal({
+        onOpenStart: productoAgregado,
+        outDuration: 500
+    });
+
+    $('#slide-ordenes').sidenav({
+        edge: 'right'
     });
 });
 
@@ -39,7 +49,7 @@ function gotoPageModal(index){
     //STEP - 3 | IR A - RESUMEN DE LO QUE QUIERO PEDIR (INDIVIDUALMENTE) / SUB TOTAL
     // ACTION FROM STEP - 2 | PREPARAR LA INFORMACIÓN DE STEP - 4
     else if(index==2){
-        let nota_producto=document.getElementById('nota_producto');
+        let nota_producto=document.getElementById('nota-producto');
         menu.dataModal[0].nota=nota_producto.value;
     }
     
@@ -47,12 +57,6 @@ function gotoPageModal(index){
     else if(index==3){
         
     }
-    
-    else if(index==4){
-        
-    }
-
-    //EVENT - 5 | IR A - ORDENAR
 }
 
 
@@ -78,22 +82,44 @@ function addNumber(type){
     }
 }
 
-function showInputAddNote(bool){
+function badgeCounter(id, counter){
+    var elem_badge=document.getElementById(id);
 
-    let div_addnote_modal=document.querySelector('.div-addnote-modal');
+    if(counter==0){
+        elem_badge.classList.add('none');
+    }else{
+        elem_badge.classList.remove('none');
+    }
+
+    if(counter>9){
+        elem_badge.innerHTML='+9'; 
+    }
+    else if(counter<10){
+        elem_badge.innerHTML=counter; 
+    }
+}
+
+function showInputAddNote(bool){
+    let describe_nota=document.getElementById('describe-nota');
+    let no_add_nota=document.getElementById('no-add-nota');
+    let si_add_nota=document.getElementById('si-add-nota');
+    let nota_producto=document.getElementById('nota-producto');
+    let follow_nota=document.getElementById('follow-nota');
     
-    let div_custom_addnote=document.getElementById('div-custom-addnote');
-    let addnote_options=document.getElementById('addnote-options');
 
     if(bool==1){
-        div_custom_addnote.classList.remove('none');
-        addnote_options.classList.add('none');
-        div_addnote_modal.classList.add('div-addnote-modal-none');
-        
+        describe_nota.classList.add('none');
+        no_add_nota.classList.add('none');
+        si_add_nota.classList.add('none');
+        nota_producto.classList.remove('none');
+        follow_nota.classList.remove('none');
+
     }else{
-        div_custom_addnote.classList.add('none');
-        addnote_options.classList.remove('none');
-        div_addnote_modal.classList.remove('div-addnote-modal-none');
+        describe_nota.classList.remove('none');
+        no_add_nota.classList.remove('none');
+        si_add_nota.classList.remove('none');
+        nota_producto.classList.add('none');
+        follow_nota.classList.add('none');
     }
 }
 
@@ -113,6 +139,13 @@ function refillModalProducto(){
     number_count.innerHTML=1;
     showInputAddNote(0);
     gotoPageModal(0);
+}
+
+function productoAgregado(){
+    $('#modal-select-product').modal('close');
+    setTimeout(function(){
+        $('#modal-alert').modal('close');
+    },1500);
 }
 
 function ordenar(){
@@ -201,7 +234,7 @@ var menu = new Vue({
         "total_orden"(newValue, oldValue){
             let step_4_total=document.getElementById('step-4-total');
             step_4_total.innerHTML='TOTAL: $'+newValue+'.00';
-        },
+        }
     },
     methods:{
         agregarProducto(){
@@ -222,15 +255,16 @@ var menu = new Vue({
 
             //AGREGANDO EL JSON A UNA LISTA DE OBJETOS - PARA COLECCIONAR LA LISTA DE PRODUCTOS AGREGADOS POR EL CLIENTE
             this.lista_productos.push(obj);
-            console.log('Data: '+JSON.stringify(this.lista_productos));
+            localStorage.setItem('data_lista_productos', JSON.stringify(this.lista_productos));
             
             //SUMATORIA DE TODOS LOS SUB TOTALES DE CADA PRODUCTO QUE AGREGA EL CLIENTE
             this.sumatoria.push(this.dataModal[0].subtotal);
-            this.total_orden = this.sumatoria.reduce((a, b) => a + b, 0);
+            this.total_orden = parseInt(this.total_orden)+this.sumatoria.reduce((a, b) => a + b, 0);
+            localStorage.setItem('data_total_orden', this.total_orden);
             
-            console.log('SUMATORIA: '+this.total_orden);
+            badgeCounter('badge-cantidad-productos', this.lista_productos.length);
 
-            gotoPageModal(3);
+            $('#modal-alert').modal('open');
         },
         selectTab(index){
             slideToIndex(tabs_swiper, index, 500);
@@ -253,7 +287,6 @@ var menu = new Vue({
         },
         selectProduct(iCategoria,iProducto){
             var step_3_nameProducto=document.getElementById('step-3-nameProducto');
-            // console.log('selectProduct: '+this.categorias[iCategoria].name_categoria+'|'+JSON.stringify(this.productos[iProducto]));
             console.log('selectProduct: '+this.categorias[iCategoria].name_categoria+'|'+this.productos[iProducto].titulo);
             this.dataModal[0].idProducto=this.productos[iProducto].id_producto;
             this.dataModal[0].nombreProducto=this.productos[iProducto].titulo;
@@ -338,6 +371,9 @@ var menu = new Vue({
                     VUETHIS_SUB.productos = json_response;
                     if(callback)
                         callback();
+                        setTimeout(function(){
+                            VUETHIS_SUB.loadListProductos();
+                        },100);
                         console.log('loadProductos - '+VUETHIS_SUB.productos.length);
                     } else {
                         console.log('ERROR EN VUE 1'+JSON.stringify(json_response));
@@ -345,6 +381,19 @@ var menu = new Vue({
             }).fail(function() {
                 console.log('ERROR EN VUE 2');
             });
+        },
+        loadListProductos(){
+            console.log('loadListProductos');
+            if(localStorage.getItem('data_lista_productos')){
+                var data_lista_productos=localStorage.getItem('data_lista_productos');
+                var data_total_orden=localStorage.getItem('data_total_orden');
+                this.lista_productos=JSON.parse(data_lista_productos);
+                this.total_orden=data_total_orden;
+                badgeCounter('badge-cantidad-productos', this.lista_productos.length);
+            }else{
+                console.log('data_lista_productos: VACIO');
+            badgeCounter('badge-cantidad-productos', 0);
+            }
         },
         loadLastIdOrdenes(callback){
             const VUETHIS_SUB = this;

@@ -5809,7 +5809,7 @@ small {
   border: none;
   border-radius: 2px;
   display: inline-block;
-  height: 36px;
+  height: 45px;
   line-height: 36px;
   padding: 0 16px;
   text-transform: uppercase;
@@ -6396,7 +6396,7 @@ body.keyboard-focused .dropdown-content li:focus {
   right: 0;
   background-color: #fafafa;
   padding: 0;
-  max-height: 70%;
+  /* max-height: 70%; */
   width: 55%;
   margin: auto;
   overflow-y: auto;
@@ -8208,7 +8208,7 @@ input[type=range]::-ms-thumb {
 
 .sidenav li {
   float: none;
-  line-height: 48px;
+  line-height: 20px;
 }
 
 .sidenav li.active {

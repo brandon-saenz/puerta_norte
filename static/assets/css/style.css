@@ -1,6 +1,14 @@
 :root{
     --wood_rt: rgba(102,87,26,1);
+    --wood_rt_01: rgba(102,87,26,0.1);
+    --wood_rt_02: rgba(102,87,26,0.2);
+    --wood_rt_03: rgba(102,87,26,0.3);
+    --wood_rt_04: rgba(102,87,26,0.4);
     --wood_rt_05: rgba(102,87,26,0.5);
+    --wood_rt_06: rgba(102,87,26,0.6);
+    --wood_rt_07: rgba(102,87,26,0.7);
+    --wood_rt_08: rgba(102,87,26,0.8);
+    --wood_rt_09: rgba(102,87,26,0.9);
 }
 
 /* GROSOR DEL SCROLL*/
@@ -64,7 +72,7 @@ body{
 nav{
     background-color: white !important;
     display: grid;
-    grid-template-columns: 0.1fr 0.82fr;
+    grid-template-columns: 0.1fr 1fr 0.1fr;
     grid-template-rows: 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
@@ -107,6 +115,10 @@ nav svg {
     letter-spacing: 0.17em; fill: var(--wood_rt); 
 }
 
+.swiper-slide{
+    height: auto !important;
+}
+
 /* Loader Spin */
 .loader-spin {
     height: 32px; width: 32px;
@@ -145,6 +157,7 @@ nav svg {
       60%  { -webkit-transform: rotate(180deg); }
       100% { -webkit-transform: rotate(360deg); }
   }
+  
   @keyframes loader-spin-1 {
       0%   { transform: rotate(0deg); }
       40%  { transform: rotate(180deg); }
@@ -169,6 +182,7 @@ nav svg {
       50%  { -webkit-transform: translate3d(0, 0, 0) scale(1.25, 1.25); opacity: 1; }
       100% { -webkit-transform: translate3d(0, 8px, 0) scale(0, 0); opacity: 0; }
   }
+  
   @keyframes loader-spin-2 {
       0%   { transform: translate3d(0, -32px, 0) scale(0, 2); opacity: 0; }
       50%  { transform: translate3d(0, 0, 0) scale(1.25, 1.25); opacity: 1; }
@@ -185,9 +199,14 @@ nav svg {
     overflow: hidden !important;
 }
 
+.btn-plus{
+    height: 36px;
+    width: 64px;
+}
+
 .btn-page {
     box-shadow: none !important;
-    border-radius: 0px;
+    border-radius: 5px;
 }
 .btn-page:hover{
     box-shadow: none !important;
@@ -199,6 +218,12 @@ nav svg {
 }
 
 .btn-page-nota{
+    width: 80%;
+    margin-inline: 10%;
+    margin-top: 1rem;
+}
+
+.btn-page-add-orden{
     width: 70%;
     margin-inline: 15%;
     margin-top: 1rem;
@@ -238,11 +263,7 @@ nav svg {
 }
 
 .tabs-swiper{
-    margin: 1.2rem !important;
-}
-
-.tabs-swiper div{
-    margin-left: 0.2rem;
+    
 }
 
 .div-categoria {
@@ -252,19 +273,17 @@ nav svg {
 }
 
 .title-categoria{
-    width: 87%;
-
+    width: 81%;
     border-bottom: 1px solid var(--wood_rt);
     border-left: 1px solid var(--wood_rt);
     padding-inline: 15px;
     padding-top: 6px;
     padding-bottom: 6px;
-
     font-family: Century Gothic, sans-serif;
     color: var(--wood_rt);
     font-style: italic;
-
     margin-block: 1rem;
+    margin-inline: 2rem;
 }
 
 .div-categoria > li > div{
@@ -273,7 +292,6 @@ nav svg {
 }
 
 .div-producto {
-    width: 77.5%;
     margin-bottom: 0;
     display: grid;
     grid-template-columns: 1fr;
@@ -282,6 +300,7 @@ nav svg {
     grid-row-gap: 0px;
 
     margin-block: 10px;
+    margin-inline: 2rem;
 
     padding-inline: 2rem;
     padding-block: 1rem;
@@ -309,21 +328,28 @@ nav svg {
     color: var(--wood_rt);
 }
 
+.descripcion-producto{
+    height: 8rem;
+    overflow-y: scroll;
+}
 
-.div-producto-modal, .div-addnote-modal {
-    height: 251px;
-    margin-bottom: 1rem !important;
-    /* display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px; */
-    margin-block: 10px;
+.div-producto-modal {
+    margin-bottom: 0rem !important;
+    margin-block: 1rem;
     padding-inline: 2rem;
-    padding-block: 1rem;
     border-radius: 0;
     border-bottom: 1px solid var(--wood_rt);
 }
+
+.div-addnote-modal{
+    margin-bottom: 1rem !important;
+    margin-block: 1rem;
+    padding-inline: 2rem;
+    border-radius: 0;
+    border-bottom: 1px solid var(--wood_rt);
+}
+
+/* .div-addnote-modal{height: 251px;} */
 
 .div-list-productos{
     display: block !important;
@@ -334,10 +360,10 @@ nav svg {
     padding-bottom: 2rem;
 }
 
-.div-addnote-modal-none{
+/* .div-addnote-modal-none{
     border-bottom: 0px solid var(--wood_rt) !important;
     margin-bottom: 0rem !important;
-}
+} */
 
 .div-producto-modal div{
     display: grid;
@@ -348,11 +374,11 @@ nav svg {
 
 .div-number{
     display: grid;
-    grid-template-columns: 0.6fr 1fr 0.6fr;
+    grid-template-columns: 64px 60px 64px;
     grid-column-gap: 0;
     grid-row-gap: 0px;
-    padding-inline: 5rem !important;
-    margin-block: 1rem;
+    margin-block: 2rem !important;
+    margin: auto;
 }
 
 .div-follow{
@@ -360,13 +386,10 @@ nav svg {
     grid-template-columns: 1fr;
     grid-column-gap: 0;
     grid-row-gap: 0px;
-    padding-inline: 10% !important;
+    padding-inline: 5% !important;
     margin-top: 2rem;
-}
-
-.div-custom-textarea{
-    margin: 0; padding: 0;
-    margin-top: -4rem;
+    position: absolute;
+    bottom: 0;
 }
 
 .custom-textarea{
@@ -374,7 +397,8 @@ nav svg {
     padding-inline: 1rem !important;
     font-family: "Century Gothic", sans-serif;
     font-size: 1.5rem;
-    height: 9rem !important;
+    margin-bottom: 2rem !important;
+    height: 10rem !important;
 }
 
 .custom-textarea:focus{
@@ -382,3 +406,70 @@ nav svg {
     -webkit-box-shadow: 0 0 0 0 solid var(--wood_rt) !important;
     box-shadow: 0 0 0 0 solid var(--wood_rt) !important;
 }
+
+.li-orden-producto{
+    height: 66%;
+    overflow-y: scroll;
+}
+.div-orden-producto{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-column-gap: 12px;
+    grid-row-gap: 12px;
+    padding-inline: 1rem;
+    border-bottom: 1px solid var(--wood_rt_02);
+    padding-bottom: 0.8rem;
+}
+
+#modal-alert{
+    width: 80%;
+    margin: 10%;
+    top: 30% !important;
+    border-radius: 10px;
+}
+
+#modal-alert > div > p{margin-block: 0;margin-bottom: 1rem;}
+
+.badge-data {
+    position: absolute;
+    right: 13px;
+    top: 29px;
+    background-color: var(--wood_rt);
+    height: 14px;
+    border: 1px solid white;
+    border-radius: 10px;
+    color: white;
+    font-size: 8px;
+    line-height: 12px;
+    text-align: center;
+    font-family: Century Gothic, sans-serif;
+    padding-inline: 4px;
+}
+.checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: #7ac142;
+    fill: none;
+    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.checkmark {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 2;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    margin: 10% auto;
+    box-shadow: inset 0px 0px 0px #7ac142;
+    animation: fill .2s ease-in-out .2s forwards, scale .2s ease-in-out .4s both;
+}
+.checkmark__check{transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: stroke 0.2s cubic-bezier(0.65, 0, 0.45, 1) 0.4s forwards}
+    @keyframes stroke{100%{stroke-dashoffset: 0}}
+    @keyframes scale{0%, 100%{transform: none}50%{transform: scale3d(1.1, 1.1, 1)}}
+    @keyframes fill{100%{box-shadow: inset 0px 0px 0px 30px #7ac142}}
