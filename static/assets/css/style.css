@@ -229,11 +229,12 @@ nav svg {
     margin-top: 1rem;
 }
 
-.div-tab-categoria{
+.div-tab-categoria {
     overflow-x: scroll;
     height: 4.5rem;
-    margin-top: -3px;
+    margin-top: 0px;
     scroll-behavior: smooth;
+    background-color: white;
 }
 
 .div-tab-categoria::-webkit-scrollbar {
