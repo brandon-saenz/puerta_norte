@@ -64,6 +64,16 @@
 .bold-800{font-weight: 800 !important;}
 .bold-900{font-weight: 900 !important;}
 
+#toast-container {
+    left: 0 !important;
+    padding-bottom: 21px !important;
+    padding-inline: 2rem !important;
+}
+
+.toast-btn{
+    
+}
+
 body{
     background-color: white !important;
     font-size: 11px;

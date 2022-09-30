@@ -13,7 +13,6 @@ class ApiProductos{
     function getAllProductos(){
         $query = new SelectProductos();
         $data = array();
-        $data = array();
         $res = $query->getProductos();
 
         if($res->rowCount()){

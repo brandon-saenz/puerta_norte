@@ -73,6 +73,12 @@ function slideToIndex(instance, index, timer){
     instance.slideTo(index, timer);
 }
 
+function loop() {
+    setTimeout(function() {
+        loop();
+    }, 10000);
+}
+
 
 function onIntro(){
     var svg = document.querySelector('.logo');

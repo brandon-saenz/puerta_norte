@@ -3,7 +3,7 @@ include_once '../db.php';
 
 class Select extends DB{
     function get(){
-        $query = $this->connect()->query('SELECT * FROM categorias_menu ORDER BY id_categoria ASC');
+        $query = $this->connect()->query('SELECT * FROM ordenes ORDER BY id_orden ASC');
         return $query;
     }
 }
@@ -19,9 +19,9 @@ class Api{
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
                 $obj=array(
-                    "id_categoria" => $row['id_categoria'],
-                    "id_tab" => $row['id_tab'],
-                    "name_categoria" => $row['name_categoria']
+                    "id_orden" => $row['id_orden'],
+                    "total" => $row['total'],
+                    "nombre_ordenante" => $row['nombre_ordenante']
                 );
                 array_push($data, $obj);
             }

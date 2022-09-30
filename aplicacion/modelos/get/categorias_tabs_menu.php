@@ -13,7 +13,6 @@ class Api{
     function getAll(){
         $query = new Select();
         $data = array();
-        $data = array();
         $res = $query->get();
 
         if($res->rowCount()){

@@ -208,5 +208,5 @@
 
 	</footer>
 </body>
-<?php include_once(APP . 'vistas/inc/vue.php'); ?>
+<?php include_once(APP . 'vistas/js/js-principal.php'); ?>
 </html>
