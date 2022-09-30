@@ -233,7 +233,12 @@ var menu = new Vue({
     watch:{
         "total_orden"(newValue, oldValue){
             let step_4_total=document.getElementById('step-4-total');
-            step_4_total.innerHTML='TOTAL: $'+newValue+'.00';
+            if(newValue==0){
+                step_4_total.innerHTML='';
+            }
+            else{
+                step_4_total.innerHTML='SUB TOTAL: $'+newValue+'.00';
+            }
         }
     },
     methods:{
@@ -417,6 +422,14 @@ var menu = new Vue({
             }).fail(function() {
                 console.log('ERROR EN VUE 2');
             });
+        },
+        cancelarResumenOrden(){
+            this.lista_productos=[];
+            this.total_orden=0;
+            localStorage.removeItem('data_lista_productos');
+            localStorage.removeItem('data_total_orden');
+            badgeCounter('badge-cantidad-productos', 0);
+            console.log('RESUMEN CANCELADO');
         }
     }
 });

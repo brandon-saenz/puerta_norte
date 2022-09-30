@@ -10,18 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // },100);
     offIntro();
     M.AutoInit();
-    modal_product_swiper = new Swiper(".modal-product-swiper", {
-        modules: [eventsModalProductoSwiper],
-        keyboard: {
-            enabled: true,
-        },
-        hashNavigation: {
-            watchState: true,
-        },
-        debugger: true,
-        allowTouchMove: true,
-    });
-
     tabs_swiper = new Swiper(".tabs-swiper", {
         modules: [eventsTabsSwiper],
         // keyboard: {
@@ -34,12 +22,54 @@ document.addEventListener("DOMContentLoaded", function() {
         allowTouchMove: true,
     });
 
+    modal_product_swiper = new Swiper(".modal-product-swiper", {
+        modules: [eventsModalProductoSwiper],
+        keyboard: {
+            enabled: true,
+        },
+        hashNavigation: {
+            watchState: true,
+        },
+        debugger: true,
+        allowTouchMove: false,
+    });
+
+    side_orden_swiper = new Swiper(".side-orden", {
+        modules: [eventsSideOrdenSwiper],
+        keyboard: {
+            enabled: true,
+        },
+        hashNavigation: {
+            watchState: true,
+        },
+        debugger: true,
+        allowTouchMove: true,
+    });
+
+
     // $('#nota_producto').characterCounter();
 });
 
+
+function eventsTabsSwiper({ swiper, extendParams, on }) {
+    extendParams({
+        debugger: false,
+    });
+
+    on('slideChange', () => {
+        if (!swiper.params.debugger) return;
+        // if(swiper.activeIndex>=1){
+        //     console.log('COMPLETADO');
+        // }else{
+            //     console.log('INICIO');
+            // }  
+            menu.selectTab(swiper.activeIndex);  
+        });
+    }
+
 function eventsModalProductoSwiper({ swiper, extendParams, on }) {
     extendParams({
-      debugger: false,
+        debugger: false,
     });
 
     on('slideChange', () => {
@@ -53,9 +83,9 @@ function eventsModalProductoSwiper({ swiper, extendParams, on }) {
     });
 }
 
-function eventsTabsSwiper({ swiper, extendParams, on }) {
+function eventsSideOrdenSwiper({ swiper, extendParams, on }) {
     extendParams({
-      debugger: false,
+        debugger: false,
     });
 
     on('slideChange', () => {
@@ -63,11 +93,12 @@ function eventsTabsSwiper({ swiper, extendParams, on }) {
         // if(swiper.activeIndex>=1){
         //     console.log('COMPLETADO');
         // }else{
-        //     console.log('INICIO');
-        // }  
-        menu.selectTab(swiper.activeIndex);  
-    });
-}
+            //     console.log('INICIO');
+            // }  
+            //menu.selectTab(swiper.activeIndex);  
+        });
+    }
+
 
 function slideToIndex(instance, index, timer){
     instance.slideTo(index, timer);

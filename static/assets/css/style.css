@@ -32,6 +32,10 @@
     background-color: black !important;
 }
 
+.white-bg{
+    background-color: white !important;
+}
+
 .wood-cl{
     color: var(--wood_rt) !important;
 }
@@ -41,6 +45,15 @@
 }
 
 .div-center{vertical-align: middle; display: flex; justify-content: center;}
+.side-text-vertical-center{
+    height: 80%;
+}
+.side-text-vertical-center p{
+    margin: auto;
+    line-height: 2rem;
+    padding-inline: 2rem;
+}
+
 .text-center{text-align: center;} 
 .text-left{text-align: left;} 
 .text-right{text-align: right;} 
@@ -127,6 +140,7 @@ nav svg {
 
 .swiper-slide{
     height: auto !important;
+    overflow: hidden;
 }
 
 /* Loader Spin */
@@ -212,6 +226,16 @@ nav svg {
 .btn-plus{
     height: 36px;
     width: 64px;
+}
+
+.btn-back{
+    height: 36px;
+    width: 36px;
+    box-shadow: none !important;
+    border-radius: 5px;
+    position: absolute;
+    left: -26px;
+    top: -7px;
 }
 
 .btn-page {
@@ -356,7 +380,15 @@ nav svg {
 
 .div-addnote-modal{
     margin-bottom: 1rem !important;
-    margin-block: 1rem;
+    margin-block: 2rem;
+    padding-inline: 2rem;
+    border-radius: 0;
+    border-bottom: 1px solid var(--wood_rt);
+}
+
+.div-resume-modal {
+    margin-bottom: 0rem !important;
+    margin-block: 4rem;
     padding-inline: 2rem;
     border-radius: 0;
     border-bottom: 1px solid var(--wood_rt);
@@ -369,7 +401,7 @@ nav svg {
     overflow-y: scroll;
 }
 
-.div-producto-modal p, .div-addnote-modal p{
+.div-producto-modal p, .div-addnote-modal p, .div-resume-modal p{
     padding-bottom: 2rem;
 }
 
@@ -378,7 +410,7 @@ nav svg {
     margin-bottom: 0rem !important;
 } */
 
-.div-producto-modal div{
+.div-producto-modal div, .div-resume-modal div{
     display: grid;
     grid-template-columns: 3fr 1fr;
     grid-column-gap: 0px;
@@ -432,6 +464,18 @@ nav svg {
     padding-inline: 1rem;
     border-bottom: 1px solid var(--wood_rt_02);
     padding-bottom: 0.8rem;
+}
+
+.div-continuar-orden{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    padding-inline: 1.5rem;
+}
+
+.side-orden{
+    height: 100%;
 }
 
 #modal-alert{

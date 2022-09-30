@@ -69,6 +69,7 @@
 
                         <!-- AGREGAR ALGUNA NOTA ESPECIFICA -->
                         <div class="swiper-slide row">
+                            <button class="btn btn-back waves-dark white-bg" onclick="gotoPageModal(0)"><i class="material-icons sfs-3 wood-cl">chevron_left</i></button>
                             <div class="div-addnote-modal col s12">
                                 <div>
                                     <p class="title-producto sfs-15 style-normal bold-600">¿Deseas agregar una nota al chef?</p>
@@ -85,7 +86,8 @@
 
                         <!-- VISTA PARA AÑADIR AL RESUMEN DE ORDEN -->
                         <div class="swiper-slide row">
-                            <div class="div-producto-modal col s12">
+                            <button class="btn btn-back waves-dark white-bg" onclick="gotoPageModal(1)"><i class="material-icons sfs-3 wood-cl">chevron_left</i></button>
+                            <div class="div-resume-modal col s12">
                                 <div>
                                     <p id="step-3-nameProducto" class="title-producto sfs-15 style-normal bold-600">{{dataModal[0].nombreProducto}}</p>
                                     <p class="title-producto text-right sfs-15 style-normal bold-600">${{dataModal[0].precioProducto}}.00</p>
@@ -163,21 +165,42 @@
             <ul id="slide-ordenes" class="sidenav">
                 <li><p class="wood-cl century sfs-13 text-center">RESUMEN DE ORDEN</p></li>
                 <li><div class="divider"></div></li>
-                <li class="li-orden-producto" v-if="total_orden!=0">
-                    <!-- LISTA DE PRODUCTOS AGREGADOS -->
-                    <div class="div-orden-producto" v-for="(itemListProduct, i) in lista_productos" :key="i">
-                        <p class="title-producto sfs-12 style-normal bold-500">{{itemListProduct.cantidadProducto}} X {{itemListProduct.nombreProducto}}</p>
-                        <p class="title-producto text-right sfs-12 style-normal bold-500">${{itemListProduct.precioProducto}}.00</p>
+
+                <div class="swiper side-orden">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            
+                            <!-- LABEL EN CASO DE QUE ESTÉ LA ORDEN VACÍA -->
+                            <div v-if="total_orden==0" class="div-center side-text-vertical-center">
+                                <p class="wood-cl century sfs-11 text-center">LOS PLATILLOS QUE AGREGUES SE MOSTRARÁN AQUÍ</p>
+                            </div>
+            
+                            <!-- LISTA DE PRODUCTOS AGREGADOS -->
+                            <div class="li-orden-producto" v-if="total_orden!=0">
+                                <div class="div-orden-producto" v-for="(itemListProduct, i) in lista_productos" :key="i">
+                                    <p class="title-producto sfs-12 style-normal bold-500">{{itemListProduct.cantidadProducto}} X {{itemListProduct.nombreProducto}}</p>
+                                    <p class="title-producto text-right sfs-12 style-normal bold-500">${{itemListProduct.precioProducto}}.00</p>
+                                </div>
+                            </div>
+                            <div v-if="total_orden!=0"><div class="divider"></div></div>
+                            
+                            <!-- PRECIO TOTAL DE LA ORDEN -->
+                            <div>
+                                <p id="step-4-total" class="text-center sfs-15 style-normal bold-600 wood-cl century"></p>
+                            </div>
+                            
+                            <!-- BOTON PARA CONTINUAR CON LA ORDEN -->
+                            <div class="div-continuar-orden" v-if="total_orden!=0">
+                                <button class="btn btn-page wood-bg century white-cl sfs-10" @click="cancelarResumenOrden()">CANCELAR</button>
+                                <br>
+                                <button class="btn btn-page wood-bg century white-cl sfs-10" onclick="slideToIndex(side_orden_swiper, 1, 500)">CONTINUAR</button>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            
+                        </div>
                     </div>
-                </li>
-                <li v-if="total_orden!=0"><div class="divider"></div></li>
-                <li>
-                    <!-- PRECIO TOTAL DE LA ORDEN -->
-                    <p id="step-4-total" class="text-center sfs-15 style-normal bold-600 wood-cl century"></p>
-                </li>
-                <li class="div-center" v-if="total_orden!=0">
-                    <button class="btn btn-page wood-bg century white-cl sfs-13" onclick="ordenar()">ORDENAR</button>
-                </li>
+                </div>
             </ul>
 
             <div class="swiper tabs-swiper">
