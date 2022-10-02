@@ -13,11 +13,11 @@ class DB{
         if(getenv('HTTP_HOST')=='localhost'){
             $this->host     = 'localhost';
             $this->user     = 'root';
-            $this->password = "";
+            $this->password = '';
         }else{
             $this->host     = 'p3plzcpnl487033';
             $this->user     = 'p1d67xcfzkkf';
-            $this->password = "Bo0B13S777.";
+            $this->password = 'br4n.GazTor';
         }
     }
 
