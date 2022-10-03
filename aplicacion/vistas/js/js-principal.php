@@ -378,6 +378,27 @@ var menu = new Vue({
                         callback();
                         setTimeout(function(){
                             VUETHIS_SUB.loadListProductos();
+                            var elementSwiper=document.querySelector('.lista-productos-swiper');
+    
+                            if(elementSwiper){
+
+                                lista_productos_swiper = new Swiper(".lista-productos-swiper", {
+                                    modules: [eventsListaProductosSwiper],
+                                    keyboard: {
+                                        enabled: true,
+                                    },
+                                    hashNavigation: {
+                                        watchState: true,
+                                    },
+                                    debugger: true,
+                                    allowTouchMove: true,
+                                    spaceBetween: -100,
+                                    navigation: {
+                                        nextEl: ".swiper-button-next",
+                                        prevEl: ".swiper-button-prev",
+                                    }
+                                });
+                            }
                         },100);
                         console.log('loadProductos - '+VUETHIS_SUB.productos.length);
                     } else {

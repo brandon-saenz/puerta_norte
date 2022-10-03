@@ -211,16 +211,25 @@
                         <div v-for="(itemCategoria, j) in categorias" :key="j" 
                             v-if="itemCategoria.id_tab==tabCategoria.id_tab">
                             <p class="title-categoria sfs-15 style-italic bold-600">{{itemCategoria.name_categoria}}</p>
-                            <div @click="selectProduct(j,k)" class="" v-for="(itemProductos, k) in productos" :key="k" 
-                                v-if="itemCategoria.id_categoria==itemProductos.id_categoria">
-                                <div class="div-producto">
-                                    <div>
-                                        <p class="title-producto sfs-12 style-normal bold-600">{{itemProductos.titulo}}</p>
-                                        <p class="title-producto text-right sfs-11 style-normal bold-600">${{itemProductos.precio}}.00</p>
+                            
+                            <!-- LISTA POR CATEGORÍA -->
+                            <div class="swiper lista-productos-swiper">
+                                <div class="swiper-wrapper">
+                                    <div @click="selectProduct(j,k)" class="swiper-slide" v-for="(itemProductos, k) in productos" :key="k" 
+                                        v-if="itemCategoria.id_categoria==itemProductos.id_categoria">
+                                        <div class="div-producto">
+                                            <div>
+                                                <p class="title-producto sfs-12 style-normal bold-600">{{itemProductos.titulo}}</p>
+                                                <p class="title-producto text-right sfs-11 style-normal bold-600">${{itemProductos.precio}}.00</p>
+                                            </div>
+                                            <p class="title-producto sfs-11 style-normal bold-400" v-if="itemProductos.descripcion!='0'">{{itemProductos.descripcion}}</p>
+                                        </div>
                                     </div>
-                                    <p class="title-producto sfs-11 style-normal bold-400" v-if="itemProductos.descripcion!='0'">{{itemProductos.descripcion}}</p>
                                 </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
                             </div>
+                        
                         </div>
                     </div>
                 </div>

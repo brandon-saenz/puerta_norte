@@ -1,7 +1,7 @@
 // document.querySelector('.draw-logo-path-'+i).style.fill='black';
 // var dasharray_fig=fig.getTotalLength().toFixed(0);
 
-var modal_product_swiper, tabs_swiper;
+var tabs_swiper, lista_productos_swiper, modal_product_swiper, side_orden_swiper;
 
 document.addEventListener("DOMContentLoaded", function() {
     console.log('SCRIPT DEL PROYECTO FUNCIONANDO'); 
@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         debugger: true,
         allowTouchMove: true,
     });
+
 
     modal_product_swiper = new Swiper(".modal-product-swiper", {
         modules: [eventsModalProductoSwiper],
@@ -58,14 +59,19 @@ function eventsTabsSwiper({ swiper, extendParams, on }) {
 
     on('slideChange', () => {
         if (!swiper.params.debugger) return;
-        // if(swiper.activeIndex>=1){
-        //     console.log('COMPLETADO');
-        // }else{
-            //     console.log('INICIO');
-            // }  
-            menu.selectTab(swiper.activeIndex);  
-        });
-    }
+        menu.selectTab(swiper.activeIndex);  
+    });
+}
+
+function eventsListaProductosSwiper({ swiper, extendParams, on }) {
+    extendParams({
+        debugger: false,
+    });
+
+    on('slideChange', () => {
+        if (!swiper.params.debugger) return;
+    });
+}
 
 function eventsModalProductoSwiper({ swiper, extendParams, on }) {
     extendParams({
@@ -74,12 +80,6 @@ function eventsModalProductoSwiper({ swiper, extendParams, on }) {
 
     on('slideChange', () => {
         if (!swiper.params.debugger) return;
-        console.log('STEP MODAL PRODUCTO: '+swiper.activeIndex);
-        if(swiper.activeIndex>=1){
-            // console.log('COMPLETADO');
-        }else{
-            // console.log('INICIO');
-        }    
     });
 }
 
@@ -90,14 +90,8 @@ function eventsSideOrdenSwiper({ swiper, extendParams, on }) {
 
     on('slideChange', () => {
         if (!swiper.params.debugger) return;
-        // if(swiper.activeIndex>=1){
-        //     console.log('COMPLETADO');
-        // }else{
-            //     console.log('INICIO');
-            // }  
-            //menu.selectTab(swiper.activeIndex);  
-        });
-    }
+    });
+}
 
 
 function slideToIndex(instance, index, timer){
